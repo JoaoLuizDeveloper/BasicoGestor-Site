@@ -1,0 +1,35 @@
+﻿@using QuestorSistemasSite.Models
+@model Contato
+@{
+    ViewData["Title"] = "Fale Conosco";
+}
+
+<div class="box-section contact-section triggerAnimation animated" data-animate="flipInY">
+    <h2>Contact us</h2>
+    <form id="contact-form">
+        <div class="text-fields">
+            <div class="float-input">
+                <input name="name" id="name" type="text" placeholder="Name">
+                <span><i class="fa fa-user"></i></span>
+            </div>
+            <div class="float-input">
+                <input name="mail" id="mail" type="text" placeholder="e-mail">
+                <span><i class="fa fa-envelope-o"></i></span>
+            </div>
+            <div class="float-input">
+                <input name="website" id="website" type="text" placeholder="website">
+                <span><i class="fa fa-link"></i></span>
+            </div>
+        </div>
+        <div class="comment-area">
+            <textarea name="comment" id="comment" placeholder="Message"></textarea>
+        </div>
+        <div class="submit-area">
+            <button type="submit" name="contact-submit" id="submit_contact">
+                <i class="fa fa-envelope-o"></i>
+                Send Message
+            </button>
+        </div>
+        <div id="msg" class="message"></div>
+    </form>
+</div>

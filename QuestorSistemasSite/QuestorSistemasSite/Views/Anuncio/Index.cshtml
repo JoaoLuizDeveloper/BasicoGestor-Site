@@ -1,0 +1,27 @@
+﻿@using QuestorSistemasSite.Models
+@model Anuncio
+@{
+    ViewData["Title"] = "Anuncios";
+}
+
+<div class="portfolio triggerAnimation animated" data-animate="fadeInRightBig">
+
+    <div class="portfolio-box col2">
+        <a href="@Url.Action("Detalhes", "Anuncio")">
+            <div class="project-post">
+                <img src="upload/portfolio/1.jpg" alt="">
+                @*<div class="hover-box">
+                    <a class="page" href="single-project.html"><i class="fa fa-file-o"></i></a>
+                    <a class="zoom" href="upload/portfolio/1.jpg"><i class="fa fa-search"></i></a>
+                </div>*@
+            </div>
+        </a>        
+    </div>
+</div>
+
+<ul class="pagination-list">
+    <li><a class="active" href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+</ul>

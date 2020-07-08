@@ -1,8 +1,111 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using QuestorSistemasSite.Models
+@{
+    ViewData["Title"] = "Home";
+
+    var Anuncios = ViewBag.Anuncio as List<Anuncio>;
+    var Marcas = ViewBag.Marcas as List<Marca>;
+    var Modelos = ViewBag.Modelos as List<Modelo>;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="slider" class="box-section triggerAnimation animated" data-animate="rollIn">
+    <div class="flexslider">
+        <ul class="slides">
+            @if (Anuncios != null && Anuncios.Count > 0)
+            {
+                foreach (var item in Anuncios)
+                {
+                    <li>
+                        <img alt="" src="/upload/flex/3.jpg" />
+                        <p class="flex-caption">@item.Modelo</p>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="box-section float-image-section triggerAnimation animated" data-animate="rollIn">
+    <p style="text-align: center;">Marcas</p>
+    <div class="row">
+        @if (Marcas != null && Marcas.Count > 0)
+        {
+            foreach (var item in Marcas)
+            {
+                <div class="col-md-5">
+                    <div class="image-box">
+                        <img alt="" src="/upload/image1.jpg">
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="cont-box">
+                        <h2>@item.MarcaVeiculo</h2>
+                        <p>@item.Modelo</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<div class="row triggerAnimation animated" data-animate="bounceInLeft">
+    <p style="text-align: center;">Modelos</p>
+    <div class="col-md-6">
+        <div class="box-section toggle-section">
+            <h2>Toogle Content</h2>
+            <div class="accordion-box">
+
+                <div class="accord-elem active">
+                    <div class="accord-title">
+                        <h3>Author Resources</h3>
+                        <a class="accord-link" href="#"></a>
+                    </div>
+                    <div class="accord-content">
+                        <img alt="" src="/upload/img1.jpg">
+                        <p>Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti</p>
+                    </div>
+                </div>
+
+                <div class="accord-elem">
+                    <div class="accord-title">
+                        <h3>Marketplace Basics</h3>
+                        <a class="accord-link" href="#"></a>
+                    </div>
+                    <div class="accord-content">
+                        <img alt="" src="upload/img1.jpg">
+                        <p>Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti</p>
+                    </div>
+                </div>
+
+                <div class="accord-elem">
+                    <div class="accord-title">
+                        <h3>Affiliate Program</h3>
+                        <a class="accord-link" href="#"></a>
+                    </div>
+                    <div class="accord-content">
+                        <img alt="" src="upload/img1.jpg">
+                        <p>Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box-section skills-section">
+            <h2>Contagem</h2>
+            <div class="skills-progress">
+                <p>Anuncios <span>@Anuncios.Count%</span></p>
+                <div class="meter nostrips wp">
+                    <span style="width: @Anuncios.Count%"></span>
+                </div>
+                <p>Marcas <span>@Marcas.Count%</span></p>
+                <div class="meter nostrips css">
+                    <span style="width: @Marcas.Count%"></span>
+                </div>
+                <p>Modelos <span> @Modelos.Count%</span></p>
+                <div class="meter nostrips html">
+                    <span style="width: @Modelos.Count%"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

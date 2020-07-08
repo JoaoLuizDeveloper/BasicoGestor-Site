@@ -15,6 +15,8 @@ namespace QuestorSistemasSite.Models
         public int Id { get; set; }
         [Required]
         public string Modelo { get; set; }
+
+        public string Imagem { get; set; }
         [Required]
         public string Marca { get; set; }
         [Required]
@@ -28,8 +30,12 @@ namespace QuestorSistemasSite.Models
         [Required]
         public string FinalPlaca { get; set; }
         [Required]
-        public string Portas { get; set; }
+        public int Portas { get; set; }
 
+        [Required]
+        public bool Ativo { get; set; }
+
+        public string Slug { get; set; }
         [Column("DataVenda")]
         [Required]
         public DateTime DataVenda { get; set; }

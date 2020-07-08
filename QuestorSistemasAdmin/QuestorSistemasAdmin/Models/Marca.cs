@@ -16,6 +16,8 @@ namespace QuestorSistemasSite.Models
         [Required]
         public string MarcaVeiculo { get; set; }
 
+        public string Imagem { get; set; }
+
         [Column("DataCadastro")]
         [Required]
         public DateTime DataCadastro { get; set; }
