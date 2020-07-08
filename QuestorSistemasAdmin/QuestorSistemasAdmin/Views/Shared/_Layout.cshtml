@@ -2,48 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - QuestorSistemasAdmin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QuestorSistemasAdmin</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>@ViewData["Title"] - Administrativo</title>
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="#" type="image/png">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - QuestorSistemasAdmin - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <link href="/js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+    <link href="/js/iCheck/skins/square/square.css" rel="stylesheet">
+    <link href="/js/iCheck/skins/square/red.css" rel="stylesheet">
+    <link href="/js/iCheck/skins/square/blue.css" rel="stylesheet">
+    <link href="/css/clndr.css" rel="stylesheet">
+    <link rel="stylesheet" href="/js/morris-chart/morris.css">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style-responsive.css" rel="stylesheet">
+</head>
+<body class="sticky-header">
+    <section>
+        @Html.Partial("~/Views/Shared/partial/_NavBar.cshtml")
+        <div class="main-content">
+
+            @Html.Partial("~/Views/Shared/partial/_Header.cshtml")
+            @Html.Partial("~/Views/Shared/partial/_BreadCrumb.cshtml")
+            <div class="wrapper">
+                
+                    @RenderBody()
+                
+            </div>
+
+            @Html.Partial("~/Views/Shared/partial/_Footer.cshtml")
+
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    </section>
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/jquery.nicescroll.js"></script>
+    <script src="/js/easypiechart/jquery.easypiechart.js"></script>
+    <script src="/js/easypiechart/easypiechart-init.js"></script>
+    <script src="/js/sparkline/jquery.sparkline.js"></script>
+    <script src="/js/sparkline/sparkline-init.js"></script>
+    <script src="/js/iCheck/jquery.icheck.js"></script>
+    <script src="/js/icheck-init.js"></script>
+    <script src="/js/flot-chart/jquery.flot.js"></script>
+    <script src="/js/flot-chart/jquery.flot.tooltip.js"></script>
+    <script src="/js/flot-chart/jquery.flot.resize.js"></script>
+    <script src="/js/morris-chart/morris.js"></script>
+    <script src="/js/morris-chart/raphael-min.js"></script>
+    <script src="/js/calendar/clndr.js"></script>
+    <script src="/js/calendar/evnt.calendar.init.js"></script>
+    <script src="/js/calendar/moment-2.2.1.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/dashboard-chart-init.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

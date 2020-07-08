@@ -1,0 +1,36 @@
+﻿<div class="left-side sticky-left-side">
+    <div class="logo">
+        <a href="@Url.Action("Index","Home")"><img src="images/logo.png" alt=""></a>
+    </div>
+
+    <div class="logo-icon text-center">
+        <a href="@Url.Action("Index","Home")"><img src="images/logo_icon.png" alt=""></a>
+    </div>
+
+    <div class="left-side-inner">
+        <ul class="nav nav-pills nav-stacked custom-nav">
+            <li>
+                <a href="@Url.Action("Index","Anuncio")"><i class="fa fa-laptop"></i> <span>Anuncios</span></a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index","Marca")"><i class="fa fa-bullhorn"></i> <span>Marcas</span></a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index","Modelo")"><i class="fa fa-book"></i> <span>Modelos</span></a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("Index","Contato")"><i class="fa fa-envelope"></i> <span>Contatos</span></a>
+            </li>
+
+            <li>
+                <a asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-sign-in"></i> <span>Login</span></a>
+            </li>
+            <li>
+                <a asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user"></i> <span>Register</span></a>
+            </li>
+        </ul>
+    </div>
+</div>
