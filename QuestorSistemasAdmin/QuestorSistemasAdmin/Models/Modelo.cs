@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QuestorSistemasSite.Models
+namespace QuestorSistemasAdmin.Models
 {
     public class Modelo
     {
@@ -17,9 +17,6 @@ namespace QuestorSistemasSite.Models
         [Required]
         public string ModeloDetalhes { get; set; }
         
-        [Required]
-        public int Portas { get; set; }
-
         [Column("DataCadastro")]
         [Required]
         public DateTime DataCadastro { get; set; }

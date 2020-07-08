@@ -166,3 +166,11 @@ C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\Questor
 C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Modelo\Index.cshtml.g.cs
 C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Contato\Index.cshtml.g.cs
 C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Anuncio\Index.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Anuncio\Create.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Anuncio\Detalhes.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Anuncio\Editar.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Modelo\Create.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Marca\Create.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Marca\Detalhes.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Marca\Editar.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Modelo\Detalhes.cshtml.g.cs

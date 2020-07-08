@@ -18,17 +18,16 @@
     <div id="container" class="container">
         <div id="sidebar">
 
-            @Html.Partial("~/Views/Shared/partial/_Header.cshtml") 
-            
-            @Html.Partial("~/Views/Shared/partial/_Social.cshtml")
-            
+            <partial name="partial/_Header" />
+
+            <partial name="partial/_Social" />
+
         </div>    
 
         <div id="content">
             @RenderBody()
-                
 
-            @Html.Partial("~/Views/Shared/partial/_Footer.cshtml")            
+            <partial name="partial/_Footer" />
         </div>
     </div>
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>

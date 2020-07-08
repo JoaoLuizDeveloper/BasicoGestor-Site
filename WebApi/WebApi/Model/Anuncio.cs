@@ -36,10 +36,6 @@ namespace QuestorSistemasSite.Models
 
         public string Slug { get; set; }
         [Column("DataVenda")]
-        [Required]
         public DateTime DataVenda { get; set; }
-        [Column("DataCadastro")]
-        [Required]
-        public DateTime DataCadastro { get; set; }
     }
 }

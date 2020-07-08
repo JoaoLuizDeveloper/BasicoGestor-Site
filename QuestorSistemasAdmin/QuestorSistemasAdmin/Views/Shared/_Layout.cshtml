@@ -18,19 +18,18 @@
 </head>
 <body class="sticky-header">
     <section>
-        @Html.Partial("~/Views/Shared/partial/_NavBar.cshtml")
+        <partial name="partial/_NavBar" />
         <div class="main-content">
 
-            @Html.Partial("~/Views/Shared/partial/_Header.cshtml")
-            @Html.Partial("~/Views/Shared/partial/_BreadCrumb.cshtml")
+            <partial name="partial/_Header" />
+            <partial name="partial/_BreadCrumb" />
             <div class="wrapper">
-                
-                    @RenderBody()
-                
+
+                @RenderBody()
+
             </div>
 
-            @Html.Partial("~/Views/Shared/partial/_Footer.cshtml")
-
+            <partial name="partial/_Footer" />
         </div>
     </section>
     <script src="/js/jquery-1.10.2.min.js"></script>

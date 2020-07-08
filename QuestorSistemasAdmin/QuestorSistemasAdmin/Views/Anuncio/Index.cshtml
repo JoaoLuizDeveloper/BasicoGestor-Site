@@ -1,7 +1,73 @@
-﻿
+﻿@using QuestorSistemasAdmin.Models
+@model IList<Anuncio>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Anuncios";
 }
 
-<h1>Index</h1>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Editable Table
+                    <span class="tools pull-right">
+                        <a href="javascript:;" class="fa fa-chevron-down"></a>
+                        <a href="javascript:;" class="fa fa-times"></a>
+                    </span>
+                </header>
+                <div class="panel-body">
+                    <div class="adv-table editable-table ">
+                        <div class="clearfix">
+                            <div class="btn-group">
+                                <a href="@Url.Action("Create", "Anuncio")">
+                                    <button id="editable-sample_new" class="btn btn-primary">
+                                        Add New <i class="fa fa-plus"></i>
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Tools <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="#">Print</a></li>
+                                    <li><a href="@Url.Action("RelatorioPDF", "Anuncio")">Relatorio PDF</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="space15"></div>
+                        <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                            <thead>
+                                <tr>
+                                    <th>Marca</th>
+                                    <th>Valor Venda</th>
+                                    <th>Cor</th>
+                                    <th>Detalhes</th>
+                                    <th>Editar</th>
+                                    <th>Deletar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count() > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr class="">
+                                            <td>@item.Marca</td>
+                                            <td>@item.ValorVenda</td>
+                                            <td>@item.Cor</td>
+                                            <td><a href="@Url.Action("Detalhes", "Anuncio", new { Slug = item.Slug })">Detalhes</a></td>
+                                            <td><a class="edit" href="@Url.Action("Editar", "Anuncio", new { Slug = item.Slug})" >Editar</a></td>
+                                            <td><a class="delete" href="@Url.Action("Deletar", "Anuncio", new { id = item.Id})">Deletar</a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using QuestorSistemasSite.Models;
+using QuestorSistemasAdmin.Models;
 
 namespace QuestorSistemasAdmin.Data
 {

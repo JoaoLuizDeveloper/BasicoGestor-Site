@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuestorSistemasAdmin.Data;
-using QuestorSistemasSite.Models;
+using QuestorSistemasAdmin.Enums;
+using QuestorSistemasAdmin.Models;
+using System.Web;
+using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
 
 namespace QuestorSistemasAdmin.Controllers
 {
@@ -24,65 +30,213 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = db.Anuncio.Where(x=>x.Ativo == true).ToList();
+            return View(model);
         }
 
-        public IActionResult Create(Anuncio model)
+        public IActionResult Create ()
         {
-            if (!ModelState.IsValid)
+            ViewBag.TipoCombustivel = new SelectList(Enum.GetValues(typeof(TipoCombustivel)).Cast<TipoCombustivel>().Select(v => new SelectListItem
             {
-                return View(model);
-            }
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text");
 
-            //int codCliente = (int)Session["CodCliente"];
-            db.Anuncio.Add(model);
-            db.Entry(model).State = EntityState.Added;
-            
-
-            try
+            ViewBag.Portas = new SelectList(Enum.GetValues(typeof(Portas)).Cast<Portas>().Select(v => new SelectListItem
             {
-                db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                    
-            }
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text");
 
-            return RedirectToAction("Detalhes", "Anuncio", new { Slug = "" });
-        }
-
-        public IActionResult Detalhes(int id)
-        {
-            var anu = db.Anuncio.Find(id);
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult Editar(int id)
-        {
-            var anu = db.Anuncio.Find(id);
             return View();
         }
 
         [HttpPost]
-        public IActionResult Editar(Anuncio model)
+        public IActionResult Create(Anuncio model, IFormFile Imagem)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                try
+                {
+                    #region Imagem
+                    if (Imagem!= null)
+                    {
+                        long size = Imagem.Length;
+                        string VirtualPathTemp = Path.GetTempFileName();
+                        //string VirtualPathTemp = "C:\\Conteudo\\Anuncios\\Imagem";
+                        string ext = "";
+                        ext = System.IO.Path.GetExtension(Imagem.FileName).ToLower();
+
+                        string[] extensions = { ".jpg", ".jpeg", ".png", ".gif" };
+                        if (!extensions.Contains(ext.ToLower()))
+                        {
+                            ModelState.AddModelError("", "O  arquivo enviado não possui o formato correto. Somente imagens JPG, PNG ou GIF!");
+                        }
+
+                        string saveName = VirtualPathTemp + Imagem.FileName;
+                        //if (!Directory.Exists(VirtualPathTemp))
+                        //{
+                        //    Directory.CreateDirectory(VirtualPathTemp);
+                        //}
+
+                        using (var stream = new FileStream(VirtualPathTemp, FileMode.Create))
+                        {
+                            Imagem.CopyToAsync(stream);
+                        }
+                    }                
+                    #endregion
+                
+                    if(string.IsNullOrEmpty(model.Slug))
+                    {
+                        model.Slug = model.Marca.ToLower() + model.Modelo.ToLower();
+                        model.Slug = Regex.Replace(model.Slug, @"\s+", " ").Trim();
+                        model.Slug = Regex.Replace(model.Slug, @"\s", "-");
+                        model.Slug = Regex.Replace(model.Slug, @"<p>", "");
+                        model.Slug = Regex.Replace(model.Slug, @"</p>", "");
+                        byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(model.Slug);
+                        model.Slug = System.Text.Encoding.ASCII.GetString(bytes);
+                    }
+                    model.DataVenda = DateTime.Now;
+
+                    model.Imagem = Path.GetTempFileName() + "\\"+ Imagem.FileName;
+
+                    db.Anuncio.Add(model);
+                    db.Entry(model).State = EntityState.Added;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Detalhes", "Anuncio", new { Slug = model.Slug });
+                }
+                catch (Exception e)
+                { }
+            }
+            
+            return View(model);
+        }
+
+        
+        public IActionResult Detalhes(string Slug)
+        {
+            var model = db.Anuncio.FirstOrDefault(x=> x.Slug == Slug);
+            return View(model);
+        }
+
+        public IActionResult Editar(string Slug)
+        {
+            ViewBag.TipoCombustivel = new SelectList(Enum.GetValues(typeof(TipoCombustivel)).Cast<TipoCombustivel>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text");
+
+            ViewBag.Portas = new SelectList(Enum.GetValues(typeof(Portas)).Cast<Portas>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text");
+
+            var model = db.Anuncio.FirstOrDefault(x => x.Slug == Slug);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Anuncio model, IFormFile Imagem)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    #region Imagem
+                    if (Imagem != null)
+                    {
+                        long size = Imagem.Length;
+                        string VirtualPathTemp = Path.GetTempFileName();
+                        //string VirtualPathTemp = "C:\\Conteudo\\Anuncios\\Imagem";
+                        string ext = "";
+                        ext = System.IO.Path.GetExtension(Imagem.FileName).ToLower();
+
+                        string[] extensions = { ".jpg", ".jpeg", ".png", ".gif" };
+                        if (!extensions.Contains(ext.ToLower()))
+                        {
+                            ModelState.AddModelError("", "O  arquivo enviado não possui o formato correto. Somente imagens JPG, PNG ou GIF!");
+                        }
+
+                        string saveName = VirtualPathTemp + Imagem.FileName;
+                        //if (!Directory.Exists(VirtualPathTemp))
+                        //{
+                        //    Directory.CreateDirectory(VirtualPathTemp);
+                        //}
+
+                        using (var stream = new FileStream(VirtualPathTemp, FileMode.Create))
+                        {
+                            Imagem.CopyToAsync(stream);
+                        }
+                    }
+                    #endregion
+
+                    if (string.IsNullOrEmpty(model.Slug))
+                    {
+                        model.Slug = model.Marca.ToLower() + model.Modelo.ToLower();
+                        model.Slug = Regex.Replace(model.Slug, @"\s+", " ").Trim();
+                        model.Slug = Regex.Replace(model.Slug, @"\s", "-");
+                        model.Slug = Regex.Replace(model.Slug, @"<p>", "");
+                        model.Slug = Regex.Replace(model.Slug, @"</p>", "");
+                        byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(model.Slug);
+                        model.Slug = System.Text.Encoding.ASCII.GetString(bytes);
+                    }
+                    model.DataVenda = DateTime.Now;
+
+                    model.Imagem = Path.GetTempFileName() + "\\" + Imagem.FileName;
+
+                    db.Anuncio.Add(model);
+                    db.Entry(model).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Detalhes", "Anuncio", new { Slug = model.Slug });
+                }
+                catch (Exception e)
+                { }
             }
 
-            return View();
+            return View(model);
         }
 
         public IActionResult Excluir(int id)
         {
-            var anu = db.Anuncio.Find(id);
+            var model = db.Anuncio.Find(id);
             //anu.Excluido = true;
             
-            db.Entry(anu).State = EntityState.Deleted;
+            db.Entry(model).State = EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("Index", "Home");   
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EnviarImagem(IFormFile Imagem)
+        {
+            long size = Imagem.Length;
+            string VirtualPathTemp = "~/Conteudo/Anuncios/Images/";
+            string ext = "";
+            ext = System.IO.Path.GetExtension(Imagem.FileName).ToLower();
+
+            string[] extensions = { ".jpg", ".jpeg", ".png", ".gif" };
+            if (!extensions.Contains(ext.ToLower()))
+            {
+                ModelState.AddModelError("", "O  arquivo enviado não possui o formato correto. Somente imagens JPG, PNG ou GIF!");
+            }
+
+            string saveName = VirtualPathTemp + Imagem.FileName + ext;
+            if (!Directory.Exists(VirtualPathTemp))
+            {
+                Directory.CreateDirectory(VirtualPathTemp);
+            }
+
+            using (var stream = new FileStream(VirtualPathTemp, FileMode.Create))
+            {
+                await Imagem.CopyToAsync(stream);
+            }
+
+            return Ok(new { saveName, size });
         }
     }
 }

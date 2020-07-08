@@ -1,10 +1,12 @@
-﻿<div class="left-side sticky-left-side">
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+<div class="left-side sticky-left-side">
     <div class="logo">
-        <a href="@Url.Action("Index","Home")"><img src="images/logo.png" alt=""></a>
+        <a href="@Url.Action("Index","Home")"><img src="/images/logo.png" alt=""></a>
     </div>
 
     <div class="logo-icon text-center">
-        <a href="@Url.Action("Index","Home")"><img src="images/logo_icon.png" alt=""></a>
+        <a href="@Url.Action("Index","Home")"><img src="/images/logo_icon.png" alt=""></a>
     </div>
 
     <div class="left-side-inner">
@@ -24,13 +26,16 @@
             <li>
                 <a href="@Url.Action("Index","Contato")"><i class="fa fa-envelope"></i> <span>Contatos</span></a>
             </li>
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                <li>
+                    <a asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-sign-in"></i> <span>Login</span></a>
+                </li>
 
-            <li>
-                <a asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-sign-in"></i> <span>Login</span></a>
-            </li>
-            <li>
-                <a asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user"></i> <span>Register</span></a>
-            </li>
+                <li>
+                    <a asp-area="Identity" asp-page="/Account/Register"><i class="fa fa-user"></i> <span>Register</span></a>
+                </li>
+            }            
         </ul>
     </div>
 </div>

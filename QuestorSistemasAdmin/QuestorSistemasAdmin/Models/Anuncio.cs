@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace QuestorSistemasSite.Models
+namespace QuestorSistemasAdmin.Models
 {
     public class Anuncio
     {
@@ -36,10 +36,6 @@ namespace QuestorSistemasSite.Models
 
         public string Slug { get; set; }
         [Column("DataVenda")]
-        [Required]
         public DateTime DataVenda { get; set; }
-        [Column("DataCadastro")]
-        [Required]
-        public DateTime DataCadastro { get; set; }
     }
 }
