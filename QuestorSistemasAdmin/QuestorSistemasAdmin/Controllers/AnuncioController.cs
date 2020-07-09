@@ -16,7 +16,6 @@ using System.Text.RegularExpressions;
 
 namespace QuestorSistemasAdmin.Controllers
 {
-    //[ValidateInput(false)]
     [Authorize]
     public class AnuncioController : Controller
     {
@@ -59,11 +58,11 @@ namespace QuestorSistemasAdmin.Controllers
                 try
                 {
                     #region Imagem
-                    if (Imagem!= null)
+                    if (Imagem != null)
                     {
-                        long size = Imagem.Length;
-                        string VirtualPathTemp = Path.GetTempFileName();
-                        //string VirtualPathTemp = "C:\\Conteudo\\Anuncios\\Imagem";
+                        string VirtualPathTemp = ".\\wwwroot\\Conteudo\\Anuncios\\";
+                        string VirtualPathSite = "C:\\Users\\JuninhoDRZ\\source\\ProjetoQuestorSistemas\\ProjetoQuestorSistemas\\QuestorSistemasSite\\QuestorSistemasSite\\wwwroot\\Conteudo\\Anuncios\\";
+
                         string ext = "";
                         ext = System.IO.Path.GetExtension(Imagem.FileName).ToLower();
 
@@ -73,46 +72,61 @@ namespace QuestorSistemasAdmin.Controllers
                             ModelState.AddModelError("", "O  arquivo enviado não possui o formato correto. Somente imagens JPG, PNG ou GIF!");
                         }
 
-                        string saveName = VirtualPathTemp + Imagem.FileName;
-                        //if (!Directory.Exists(VirtualPathTemp))
-                        //{
-                        //    Directory.CreateDirectory(VirtualPathTemp);
-                        //}
-
-                        using (var stream = new FileStream(VirtualPathTemp, FileMode.Create))
+                        var ticks = DateTime.Now.Ticks.ToString();
+                        string saveName = VirtualPathTemp + ticks + Imagem.FileName;
+                        string saveNameSite = VirtualPathSite + ticks + Imagem.FileName;
+                        if (!Directory.Exists(VirtualPathTemp))
                         {
-                            Imagem.CopyToAsync(stream);
+                            Directory.CreateDirectory(VirtualPathTemp);
                         }
-                    }                
-                    #endregion
-                
-                    if(string.IsNullOrEmpty(model.Slug))
-                    {
-                        model.Slug = model.Marca.ToLower() + model.Modelo.ToLower();
-                        model.Slug = Regex.Replace(model.Slug, @"\s+", " ").Trim();
-                        model.Slug = Regex.Replace(model.Slug, @"\s", "-");
-                        model.Slug = Regex.Replace(model.Slug, @"<p>", "");
-                        model.Slug = Regex.Replace(model.Slug, @"</p>", "");
-                        byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(model.Slug);
-                        model.Slug = System.Text.Encoding.ASCII.GetString(bytes);
+
+                        if (!Directory.Exists(VirtualPathSite))
+                        {
+                            Directory.CreateDirectory(VirtualPathSite);
+                        }
+
+                        using (var stream = new FileStream(saveName, FileMode.Create))
+                        {
+                            Imagem.CopyTo(stream);
+                        }
+
+                        using (var stream = new FileStream(saveNameSite, FileMode.Create))
+                        {
+                            Imagem.CopyTo(stream);
+                        }
+                        model.Imagem = ticks + Imagem.FileName;
                     }
-                    model.DataVenda = DateTime.Now;
+                    #endregion
 
-                    model.Imagem = Path.GetTempFileName() + "\\"+ Imagem.FileName;
+                    if (ModelState.IsValid)
+                    {
+                        if (string.IsNullOrEmpty(model.Slug))
+                        {
+                            model.Slug = model.Marca.ToLower() + model.Modelo.ToLower();
+                            model.Slug = Regex.Replace(model.Slug, @"\s+", " ").Trim();
+                            model.Slug = Regex.Replace(model.Slug, @"\s", "-");
+                            model.Slug = Regex.Replace(model.Slug, @"<p>", "");
+                            model.Slug = Regex.Replace(model.Slug, @"</p>", "");
+                            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(model.Slug);
+                            model.Slug = System.Text.Encoding.ASCII.GetString(bytes);
+                        }
+                        model.DataVenda = DateTime.Now;                        
 
-                    db.Anuncio.Add(model);
-                    db.Entry(model).State = EntityState.Added;
-                    db.SaveChanges();
+                        db.Entry(model).State = EntityState.Added;
+                        db.SaveChanges();
 
-                    return RedirectToAction("Detalhes", "Anuncio", new { Slug = model.Slug });
+                        return RedirectToAction("Detalhes", "Anuncio", new { Slug = model.Slug });
+                    }
+                    return View(model);
                 }
                 catch (Exception e)
-                { }
+                { 
+                    return View(model);                
+                }
             }
             
             return View(model);
         }
-
         
         public IActionResult Detalhes(string Slug)
         {
@@ -148,9 +162,9 @@ namespace QuestorSistemasAdmin.Controllers
                     #region Imagem
                     if (Imagem != null)
                     {
-                        long size = Imagem.Length;
-                        string VirtualPathTemp = Path.GetTempFileName();
-                        //string VirtualPathTemp = "C:\\Conteudo\\Anuncios\\Imagem";
+                        string VirtualPathTemp = ".\\wwwroot\\Conteudo\\Anuncios\\";
+                        string VirtualPathSite = "C:\\Users\\JuninhoDRZ\\source\\ProjetoQuestorSistemas\\ProjetoQuestorSistemas\\QuestorSistemasSite\\QuestorSistemasSite\\wwwroot\\Conteudo\\Anuncios\\";
+
                         string ext = "";
                         ext = System.IO.Path.GetExtension(Imagem.FileName).ToLower();
 
@@ -160,38 +174,40 @@ namespace QuestorSistemasAdmin.Controllers
                             ModelState.AddModelError("", "O  arquivo enviado não possui o formato correto. Somente imagens JPG, PNG ou GIF!");
                         }
 
-                        string saveName = VirtualPathTemp + Imagem.FileName;
-                        //if (!Directory.Exists(VirtualPathTemp))
-                        //{
-                        //    Directory.CreateDirectory(VirtualPathTemp);
-                        //}
-
-                        using (var stream = new FileStream(VirtualPathTemp, FileMode.Create))
+                        var ticks = DateTime.Now.Ticks.ToString();
+                        string saveName = VirtualPathTemp + ticks + Imagem.FileName;
+                        string saveNameSite = VirtualPathSite + ticks + Imagem.FileName;
+                        if (!Directory.Exists(VirtualPathTemp))
                         {
-                            Imagem.CopyToAsync(stream);
+                            Directory.CreateDirectory(VirtualPathTemp);
                         }
+
+                        if (!Directory.Exists(VirtualPathSite))
+                        {
+                            Directory.CreateDirectory(VirtualPathSite);
+                        }
+
+                        using (var stream = new FileStream(saveName, FileMode.Create))
+                        {
+                            Imagem.CopyTo(stream);
+                        }
+
+                        using (var stream = new FileStream(saveNameSite, FileMode.Create))
+                        {
+                            Imagem.CopyTo(stream);
+                        }
+                        model.Imagem = ticks + Imagem.FileName;
                     }
                     #endregion
 
-                    if (string.IsNullOrEmpty(model.Slug))
+                    if (ModelState.IsValid)
                     {
-                        model.Slug = model.Marca.ToLower() + model.Modelo.ToLower();
-                        model.Slug = Regex.Replace(model.Slug, @"\s+", " ").Trim();
-                        model.Slug = Regex.Replace(model.Slug, @"\s", "-");
-                        model.Slug = Regex.Replace(model.Slug, @"<p>", "");
-                        model.Slug = Regex.Replace(model.Slug, @"</p>", "");
-                        byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(model.Slug);
-                        model.Slug = System.Text.Encoding.ASCII.GetString(bytes);
+                        db.Entry(model).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Detalhes", "Anuncio", new { Slug = model.Slug });
                     }
-                    model.DataVenda = DateTime.Now;
 
-                    model.Imagem = Path.GetTempFileName() + "\\" + Imagem.FileName;
-
-                    db.Anuncio.Add(model);
-                    db.Entry(model).State = EntityState.Modified;
-                    db.SaveChanges();
-
-                    return RedirectToAction("Detalhes", "Anuncio", new { Slug = model.Slug });
+                    return View(model);
                 }
                 catch (Exception e)
                 { }
@@ -202,12 +218,10 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Excluir(int id)
         {
-            var model = db.Anuncio.Find(id);
-            //anu.Excluido = true;
-            
+            var model = db.Anuncio.Find(id);            
             db.Entry(model).State = EntityState.Deleted;
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");   
+            return RedirectToAction("Index", "Anuncio");   
         }
 
 
@@ -237,6 +251,22 @@ namespace QuestorSistemasAdmin.Controllers
             }
 
             return Ok(new { saveName, size });
+        }
+
+        [HttpGet]
+        public IActionResult Print()
+        {
+            var model = db.Anuncio.Where(x => x.Ativo).ToList();
+            
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Pdf()
+        {
+            var model = db.Anuncio.Where(x => x.Ativo).ToList();
+
+            return View(model);
         }
     }
 }

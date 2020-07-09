@@ -1,0 +1,126 @@
+﻿@using QuestorSistemasAdmin.Models
+@model List<Anuncio>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>@ViewData["Title"] - Administrativo</title>
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <link href="/js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+    <link href="/js/iCheck/skins/square/square.css" rel="stylesheet">
+    <link href="/js/iCheck/skins/square/red.css" rel="stylesheet">
+    <link href="/js/iCheck/skins/square/blue.css" rel="stylesheet">
+    <link href="/css/clndr.css" rel="stylesheet">
+    <link rel="stylesheet" href="/js/morris-chart/morris.css">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style-responsive.css" rel="stylesheet">
+</head>
+<body class="sticky-header">
+    <div id="Pdfconteudo" class="col-md-12">
+        <div class="box box-warning">
+            <div class="box-body">
+                <div class="form-group">
+                </div>
+                <table class="table table-bordered table-striped responsive">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tbody>
+                                <tr>
+                                    <td width="200">Marca</td>
+                                    <td>@item.Marca</td>
+                                </tr>
+
+                                <tr>
+                                    <td width="200">Modelo</td>
+                                    <td>@Html.Raw(item.Modelo)</td>
+                                </tr>
+                                @{
+                                    int compra = Int32.Parse(@item.ValorCompra);
+                                    int venda = Int32.Parse(@item.ValorVenda);
+                                    var lucro = venda - compra;
+                                }
+
+                                <tr>
+                                    <td width="200">Lucro</td>
+                                    <td> R$ @lucro</td>
+                                </tr>
+
+                                <tr>
+                                    <td width="200">Cor</td>
+                                    <td> @item.Cor</td>
+                                </tr>
+
+                                @{
+                                    var comb = @item.Combustível == "1" ? "Gasolina" : (@item.Combustível == "2" ? "Alcool" : "Gas");
+                                }
+                                <tr>
+                                    <td width="200">Combustivel</td>
+                                    <td> @comb </td>
+                                </tr>
+
+                                <tr>
+                                    <td width="200">Final Placa</td>
+                                    <td> @item.FinalPlaca</td>
+                                </tr>
+
+                                <tr>
+                                    <td width="200">Portas</td>
+                                    <td> @item.Portas</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Status</td>
+                                    <td>@Html.Raw((item.Ativo) ? "Ativo" : "Inativo")</td>
+                                </tr>
+                                <tr>
+                                    <td>Data de Cadastro</td>
+                                    <td>@item.DataVenda.ToShortDateString()</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="editor"></div>
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
+    <script src="/js/jquery.nicescroll.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var doc = new jsPDF();
+            var specialElementHandlers = {
+                '#editor': function (element, renderer) {
+                    return true;
+                }
+            };
+
+            doc.fromHTML($('#Pdfconteudo').html(), 15, 15, {
+                'width': 170,
+                'elementHandlers': specialElementHandlers
+            });
+            doc.save('Relatorio.pdf');
+        });
+    </script>
+
+</body>
+</html>

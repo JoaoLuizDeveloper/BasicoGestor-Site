@@ -1,106 +1,82 @@
 ﻿@using QuestorSistemasAdmin.Models
 @model Anuncio
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastrar Anuncio";
 }
-    <div class="wrapper">
-        <div class="row">
-            <div class="col-lg-12">
-                <section class="panel">
-                    <header class="panel-heading">
-                        CKEditor
-                        <span class="tools pull-right">
-                            <a class="fa fa-chevron-down" href="javascript:;"></a>
-                            <a class="fa fa-times" href="javascript:;"></a>
-                        </span>
-                    </header>
-                    <div class="panel-body">
-                        <div class="form">
-                            @using (Html.BeginForm("Create", "Anuncio", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "form-horizontal" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true) 
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        @Html.LabelFor(model => model.Marca)
-                                        @Html.TextBoxFor(model => model.Marca, new { @class = "form-control", Maxlength = "300" })
-                                        @Html.ValidationMessageFor(model => model.Marca)
-                                        <br />
-                                        @Html.LabelFor(model => model.Modelo)
-                                        @Html.TextAreaFor(model => model.Modelo, new { @class = "form-control ckeditor", Maxlength = "100", rows = "6" })
-                                        @Html.ValidationMessageFor(model => model.Modelo)
-                                        <br />
-                                        @Html.LabelFor(model => model.ValorCompra)
-                                        @Html.TextBoxFor(model => model.ValorCompra, new { @class = "form-control", Maxlength = "300" })
-                                        @Html.ValidationMessageFor(model => model.ValorCompra)
-                                        <br />
-                                        @Html.LabelFor(model => model.ValorVenda)
-                                        @Html.TextBoxFor(model => model.ValorVenda, new { @class = "form-control", Maxlength = "300" })
-                                        @Html.ValidationMessageFor(model => model.ValorVenda)
-                                        <br />
-                                        @Html.LabelFor(model => model.FinalPlaca)
-                                        @Html.TextBoxFor(model => model.FinalPlaca, new { @class = "form-control", Maxlength = "300" })
-                                        @Html.ValidationMessageFor(model => model.FinalPlaca)
-                                        <br />
-                                        @Html.LabelFor(model => model.Cor)
-                                        @Html.TextBoxFor(model => model.Cor, new { @class = "form-control", Maxlength = "300" })
-                                        @Html.ValidationMessageFor(model => model.Cor)
-                                        <br />
-                                        @Html.LabelFor(model => model.Combustível)
-                                        @Html.DropDownListFor(m => m.Combustível, (IEnumerable<SelectListItem>)ViewBag.TipoCombustivel, "Selecione...", new { @class = "form-control chosen-select" })
-                                        @Html.ValidationMessageFor(model => model.Combustível)
-                                        <br />
-                                        @Html.LabelFor(model => model.Portas)
-                                        @Html.DropDownListFor(m => m.Portas, (IEnumerable<SelectListItem>)ViewBag.Portas, "Selecione...", new { @class = "form-control chosen-select" })
-                                        @Html.ValidationMessageFor(model => model.Portas)
-                                        <br />
-                                        @Html.LabelFor(model => model.Imagem)
-                                        <input type="file" name="Imagem" title="Imagem" id="Imagem" onchange="function uploadImagem()" required />
-                                        @Html.ValidationMessageFor(model => model.Imagem)
-                                        <br />
-                                        @Html.LabelFor(model => model.Ativo)
-                                        @Html.EditorFor(model => model.Ativo)
-                                        @Html.ValidationMessageFor(model => model.Ativo)
-                                        <br />
-                                        <button type="submit" class="btn btn-primary">Enviar</button>
-                                    </div>                                    
-                                </div>
-                            }
-                        </div>
+<div class="wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    Cadrastrar Anuncio
+                    <span class="tools pull-right">
+                        <a class="fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="fa fa-times" href="javascript:;"></a>
+                    </span>
+                </header>
+                <div class="panel-body">
+                    <div class="form">
+                        @using (Html.BeginForm("Create", "Anuncio", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "form-horizontal" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true) 
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(model => model.Marca)
+                                    @Html.TextBoxFor(model => model.Marca, new { @class = "form-control", Maxlength = "300" })
+                                    @Html.ValidationMessageFor(model => model.Marca)
+                                    <br />
+                                    @Html.LabelFor(model => model.Modelo)
+                                    @Html.TextAreaFor(model => model.Modelo, new { @class = "form-control ckeditor", Maxlength = "100", rows = "6" })
+                                    @Html.ValidationMessageFor(model => model.Modelo)
+                                    <br />
+                                    @Html.LabelFor(model => model.ValorCompra)
+                                    @Html.TextBoxFor(model => model.ValorCompra, new { @class = "form-control", Maxlength = "300" })
+                                    @Html.ValidationMessageFor(model => model.ValorCompra)
+                                    <br />
+                                    @Html.LabelFor(model => model.ValorVenda)
+                                    @Html.TextBoxFor(model => model.ValorVenda, new { @class = "form-control", Maxlength = "300" })
+                                    @Html.ValidationMessageFor(model => model.ValorVenda)
+                                    <br />
+                                    @Html.LabelFor(model => model.FinalPlaca)
+                                    @Html.TextBoxFor(model => model.FinalPlaca, new { @class = "form-control", Maxlength = "300" })
+                                    @Html.ValidationMessageFor(model => model.FinalPlaca)
+                                    <br />
+                                    @Html.LabelFor(model => model.Cor)
+                                    @Html.TextBoxFor(model => model.Cor, new { @class = "form-control", Maxlength = "300" })
+                                    @Html.ValidationMessageFor(model => model.Cor)
+                                    <br />
+                                    @Html.LabelFor(model => model.Combustível)
+                                    @Html.DropDownListFor(m => m.Combustível, (IEnumerable<SelectListItem>)ViewBag.TipoCombustivel, "Selecione...", new { @class = "form-control chosen-select" })
+                                    @Html.ValidationMessageFor(model => model.Combustível)
+                                    <br />
+                                    @Html.LabelFor(model => model.Portas)
+                                    @Html.DropDownListFor(m => m.Portas, (IEnumerable<SelectListItem>)ViewBag.Portas, "Selecione...", new { @class = "form-control chosen-select" })
+                                    @Html.ValidationMessageFor(model => model.Portas)
+                                    <br />
+                                    @Html.LabelFor(model => model.Imagem)
+                                    <input type="file" name="Imagem" title="Imagem" id="Imagem" required />
+                                    @Html.ValidationMessageFor(model => model.Imagem)
+                                    <br />
+                                    @Html.LabelFor(model => model.Ativo)
+                                    @Html.EditorFor(model => model.Ativo)
+                                    @Html.ValidationMessageFor(model => model.Ativo)
+                                    <br />
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>                                    
+                            </div>
+                        }
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </div>
     </div>
+</div>
 
-    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="/js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-    <script type="text/javascript" src="/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-    <script>jQuery(document).ready(function(){
-         $('.wysihtml5').wysihtml5();
-    });
-    </script>
-
-<script>
-    function uploadImagem(){
-        if (event.target.files != null && event.taget.files.length > 0)
-        {
-            var file = event.target.files[0];
-            var data = new FormData();
-            data.append("Imagem", file);
-            
-            $.ajax(
-            {
-                url: "/Anuncio/EnviarImagem",
-                data: data,
-                processData: false,
-                contentType: false,
-                type: "POST",
-                success: function (data) 
-                {
-                    alert("Files Uploaded!");
-                }
-            });    
-        }
-    }
+<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="/js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+<script>jQuery(document).ready(function(){
+        $('.wysihtml5').wysihtml5();
+});
 </script>

@@ -17,13 +17,8 @@ namespace QuestorSistemasSite.Models
         [Required]
         public string ModeloDetalhes { get; set; }
 
-        [Required]
-        public int Portas { get; set; }
-
         [Column("DataCadastro")]
         [Required]
         public DateTime DataCadastro { get; set; }
-
-        public ICollection<Marca> Marca { get; set; }
     }
 }

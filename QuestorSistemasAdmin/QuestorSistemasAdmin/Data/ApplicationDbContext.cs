@@ -17,5 +17,6 @@ namespace QuestorSistemasAdmin.Data
         public DbSet<Marca> Marca { get; set; }
         public DbSet<Modelo> Modelo { get; set; }
         public DbSet<Anuncio> Anuncio { get; set; }
+        public DbSet<Contato> Contato { get; set; }
     }
 }

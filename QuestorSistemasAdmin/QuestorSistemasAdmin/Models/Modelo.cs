@@ -20,7 +20,5 @@ namespace QuestorSistemasAdmin.Models
         [Column("DataCadastro")]
         [Required]
         public DateTime DataCadastro { get; set; }
-
-        public ICollection<Marca> Marca { get; set; }
     }
 }

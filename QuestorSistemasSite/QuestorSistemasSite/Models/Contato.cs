@@ -16,6 +16,8 @@ namespace QuestorSistemasSite.Models
         [Required]
         public string Nome { get; set; }
         public string Email { get; set; }
+        [Required]
+        public string Descricao { get; set; }
 
         [Column("DataCadastro")]
         [Required]

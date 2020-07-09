@@ -25,7 +25,14 @@ namespace WebApi.Controllers
         [HttpGet]
         public IEnumerable<Anuncio> Get()
         {
-            var model = db.Anuncio.Where(x=> x.Ativo).Tolist();
+            var model = db.Anuncio.Where(x=> x.Ativo).ToArray();
+            return model;
+        }
+
+        [HttpGet("Details/{AnuncioId:int}/")]
+        public Anuncio Details(int AnuncioId)
+        {
+            var model = db.Anuncio.FirstOrDefault(x => x.Ativo && x.Id == AnuncioId);
             return model;
         }
     }

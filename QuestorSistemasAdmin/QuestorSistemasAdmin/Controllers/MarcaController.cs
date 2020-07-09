@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using QuestorSistemasAdmin.Models;
 
 namespace QuestorSistemasAdmin.Controllers
 {
+    [Authorize]
     public class MarcaController : Controller
     {
         private ApplicationDbContext db;
@@ -22,7 +24,8 @@ namespace QuestorSistemasAdmin.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var model = db.Marca.ToList();
+            return View(model);
         }
 
         public IActionResult Create()
@@ -38,11 +41,11 @@ namespace QuestorSistemasAdmin.Controllers
                 try
                 {
                     #region Imagem
+                    string VirtualPathTemp = ".\\wwwroot\\Conteudo\\Marcas\\";
+                    string VirtualPathSite = "C:\\Users\\JuninhoDRZ\\source\\ProjetoQuestorSistemas\\ProjetoQuestorSistemas\\QuestorSistemasSite\\QuestorSistemasSite\\wwwroot\\Conteudo\\Marcas\\";
+
                     if (Imagem != null)
                     {
-                        long size = Imagem.Length;
-                        string VirtualPathTemp = Path.GetTempFileName();
-                        //string VirtualPathTemp = "C:\\Conteudo\\Anuncios\\Imagem";
                         string ext = "";
                         ext = System.IO.Path.GetExtension(Imagem.FileName).ToLower();
 
@@ -52,28 +55,37 @@ namespace QuestorSistemasAdmin.Controllers
                             ModelState.AddModelError("", "O  arquivo enviado não possui o formato correto. Somente imagens JPG, PNG ou GIF!");
                         }
 
-                        string saveName = VirtualPathTemp + Imagem.FileName;
-                        //if (!Directory.Exists(VirtualPathTemp))
-                        //{
-                        //    Directory.CreateDirectory(VirtualPathTemp);
-                        //}
-
-                        using (var stream = new FileStream(VirtualPathTemp, FileMode.Create))
+                        var ticks = DateTime.Now.Ticks.ToString();
+                        string saveName = VirtualPathTemp + ticks + Imagem.FileName;
+                        string saveNameSite = VirtualPathSite + ticks + Imagem.FileName;
+                        if (!Directory.Exists(VirtualPathTemp))
                         {
-                            Imagem.CopyToAsync(stream);
+                            Directory.CreateDirectory(VirtualPathTemp);
                         }
+
+                        if (!Directory.Exists(VirtualPathSite))
+                        {
+                            Directory.CreateDirectory(VirtualPathSite);
+                        }
+
+                        using (var stream = new FileStream(saveName, FileMode.Create))
+                        {
+                            Imagem.CopyTo(stream);
+                        }
+
+                        using (var stream = new FileStream(saveNameSite, FileMode.Create))
+                        {
+                            Imagem.CopyTo(stream);
+                        }
+                        model.Imagem = ticks + Imagem.FileName;
                     }
                     #endregion
 
                     model.DataCadastro = DateTime.Now;
-
-                    model.Imagem = Path.GetTempFileName() + "\\" + Imagem.FileName;
-
-                    db.Marca.Add(model);
                     db.Entry(model).State = EntityState.Added;
                     db.SaveChanges();
 
-                    return RedirectToAction("Detalhes", "Anuncio", new { id = model.Id });
+                    return RedirectToAction("Detalhes", "Marca", new { id = model.Id });
                 }
                 catch (Exception e)
                 { }
@@ -85,13 +97,13 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Detalhes(int id)
         {
-            var model = db.Anuncio.FirstOrDefault(x => x.Id == id);
+            var model = db.Marca.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
 
         public IActionResult Editar(int id)
         {
-            var model = db.Anuncio.FirstOrDefault(x => x.Id == id);
+            var model = db.Marca.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
 
@@ -103,11 +115,11 @@ namespace QuestorSistemasAdmin.Controllers
                 try
                 {
                     #region Imagem
+                    string VirtualPathTemp = ".\\wwwroot\\Conteudo\\Marcas\\";
+                    string VirtualPathSite = "C:\\Users\\JuninhoDRZ\\source\\ProjetoQuestorSistemas\\ProjetoQuestorSistemas\\QuestorSistemasSite\\QuestorSistemasSite\\wwwroot\\Conteudo\\Marcas\\";
+
                     if (Imagem != null)
                     {
-                        long size = Imagem.Length;
-                        string VirtualPathTemp = Path.GetTempFileName();
-                        //string VirtualPathTemp = "C:\\Conteudo\\Anuncios\\Imagem";
                         string ext = "";
                         ext = System.IO.Path.GetExtension(Imagem.FileName).ToLower();
 
@@ -117,28 +129,37 @@ namespace QuestorSistemasAdmin.Controllers
                             ModelState.AddModelError("", "O  arquivo enviado não possui o formato correto. Somente imagens JPG, PNG ou GIF!");
                         }
 
-                        string saveName = VirtualPathTemp + Imagem.FileName;
-                        //if (!Directory.Exists(VirtualPathTemp))
-                        //{
-                        //    Directory.CreateDirectory(VirtualPathTemp);
-                        //}
-
-                        using (var stream = new FileStream(VirtualPathTemp, FileMode.Create))
+                        var ticks = DateTime.Now.Ticks.ToString();
+                        string saveName = VirtualPathTemp + ticks + Imagem.FileName;
+                        string saveNameSite = VirtualPathSite + ticks + Imagem.FileName;
+                        if (!Directory.Exists(VirtualPathTemp))
                         {
-                            Imagem.CopyToAsync(stream);
+                            Directory.CreateDirectory(VirtualPathTemp);
                         }
+
+                        if (!Directory.Exists(VirtualPathSite))
+                        {
+                            Directory.CreateDirectory(VirtualPathSite);
+                        }
+
+                        using (var stream = new FileStream(saveName, FileMode.Create))
+                        {
+                            Imagem.CopyTo(stream);
+                        }
+
+                        using (var stream = new FileStream(saveNameSite, FileMode.Create))
+                        {
+                            Imagem.CopyTo(stream);
+                        }
+                        model.Imagem = ticks + Imagem.FileName;
                     }
                     #endregion
 
-                    model.DataCadastro = DateTime.Now;
-
-                    model.Imagem = Path.GetTempFileName() + "\\" + Imagem.FileName;
-
-                    db.Marca.Add(model);
+                    model.DataCadastro = DateTime.Now;                    
                     db.Entry(model).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    return RedirectToAction("Detalhes", "Anuncio", new { id = model.Id });
+                    return RedirectToAction("Detalhes", "Marca", new { id = model.Id });
                 }
                 catch (Exception e)
                 { }
@@ -150,11 +171,9 @@ namespace QuestorSistemasAdmin.Controllers
         public IActionResult Excluir(int id)
         {
             var model = db.Marca.Find(id);
-            //anu.Excluido = true;
-
             db.Entry(model).State = EntityState.Deleted;
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Marca");
         }
     }
 }

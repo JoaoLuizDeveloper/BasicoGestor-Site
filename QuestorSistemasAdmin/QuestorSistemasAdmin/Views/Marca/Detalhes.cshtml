@@ -1,7 +1,40 @@
-﻿
+﻿@using QuestorSistemasAdmin.Models
+@model Marca
 @{
     ViewData["Title"] = "Detalhes";
 }
+<div class="col-md-12">
+    <div class="box box-warning">
+        <div class="box-body">
+            <div class="form-group">
+            </div>
+            <table class="table table-bordered table-striped responsive">
+                <tbody>
+                    <tr>
+                        <td width="200">Marca</td>
+                        <td>@Html.DisplayFor(model => model.MarcaVeiculo)</td>
+                    </tr>
 
-<h1>Detalhes</h1>
+                    @if (!string.IsNullOrEmpty(Model.Imagem))
+                    {
+                        <tr>
+                            <td>Imagem</td>
+                            <td><img src="/Conteudo/Marcas/@Model.Imagem" title="@Model.Imagem" style="width: 300px; height:300px;" /></td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td>Data de Cadastro</td>
+                        <td>@Model.DataCadastro.ToShortDateString()</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box-footer">
+            <a href="@Url.Action("Editar", "Marca", new { id = Model.Id })" class="btn btn-warning">Editar</a>
+            <a href="@Url.Action("Index", "Marca")" class="btn btn-info">Voltar</a>
+        </div>
+    </div>
+</div>
 

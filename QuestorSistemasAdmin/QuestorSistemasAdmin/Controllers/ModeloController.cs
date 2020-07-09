@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuestorSistemasAdmin.Data;
@@ -11,6 +12,7 @@ using QuestorSistemasAdmin.Models;
 
 namespace QuestorSistemasAdmin.Controllers
 {
+    [Authorize]
     public class ModeloController : Controller
     {
         private ApplicationDbContext db;
@@ -22,7 +24,8 @@ namespace QuestorSistemasAdmin.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var model = db.Modelo.ToList();
+            return View(model);
         }
 
         public IActionResult Create()
@@ -38,12 +41,10 @@ namespace QuestorSistemasAdmin.Controllers
                 try
                 {
                     model.DataCadastro = DateTime.Now;
-
-                    db.Modelo.Add(model);
                     db.Entry(model).State = EntityState.Added;
                     db.SaveChanges();
 
-                    return RedirectToAction("Detalhes", "Anuncio", new { id = model.Id });
+                    return RedirectToAction("Detalhes", "Modelo", new { id = model.Id });
                 }
                 catch (Exception e)
                 { }
@@ -55,13 +56,13 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Detalhes(int id)
         {
-            var model = db.Anuncio.FirstOrDefault(x => x.Id == id);
+            var model = db.Modelo.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
 
         public IActionResult Editar(int id)
         {
-            var model = db.Anuncio.FirstOrDefault(x => x.Id == id);
+            var model = db.Modelo.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
 
@@ -73,12 +74,10 @@ namespace QuestorSistemasAdmin.Controllers
                 try
                 {
                     model.DataCadastro = DateTime.Now;
-
-                    db.Modelo.Add(model);
                     db.Entry(model).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    return RedirectToAction("Detalhes", "Anuncio", new { id = model.Id });
+                    return RedirectToAction("Detalhes", "Modelo", new { id = model.Id });
                 }
                 catch (Exception e)
                 { }
@@ -90,11 +89,9 @@ namespace QuestorSistemasAdmin.Controllers
         public IActionResult Excluir(int id)
         {
             var model = db.Modelo.Find(id);
-            //anu.Excluido = true;
-
             db.Entry(model).State = EntityState.Deleted;
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Modelo");
         }
     }
 }

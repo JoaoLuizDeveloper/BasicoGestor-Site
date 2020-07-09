@@ -2,7 +2,79 @@
 @model Anuncio
 @{
     ViewData["Title"] = "Detalhes" + @Model.Slug;
+    int compra = Int32.Parse(@Model.ValorCompra);
+    int venda = Int32.Parse(@Model.ValorVenda);
+    var lucro =  venda - compra;
+
+    var comb = @Model.Combustível == "1" ? "Gasolina" : (@Model.Combustível == "2" ? "Alcool" : "Gas");
 }
 
-<h1>Detalhes</h1>
+<div class="col-md-12">
+    <div class="box box-warning">            
+            <div class="box-body">
+                <div class="form-group">
+                </div>
+                <table class="table table-bordered table-striped responsive">
+                    <tbody>
+                        <tr>
+                            <td width="200">Marca</td>
+                            <td>@Html.DisplayFor(model => model.Marca)</td>
+                        </tr>
 
+                        <tr>
+                            <td width="200">Modelo</td>
+                            <td>@Html.Raw(Model.Modelo)</td>
+                        </tr>
+
+                        <tr>
+                            <td width="200">Lucro</td>
+                            <td> R$ @lucro</td>
+                        </tr>
+
+                        <tr>
+                            <td width="200">Cor</td>
+                            <td> @Model.Cor</td>
+                        </tr>
+
+                        <tr>
+                            <td width="200">Combustivel</td>
+                            <td> @comb</td>
+                        </tr>
+
+                        <tr>
+                            <td width="200">Final Placa</td>
+                            <td> @Model.FinalPlaca</td>
+                        </tr>
+
+                        <tr>
+                            <td width="200">Portas</td>
+                            <td> @Model.Portas</td>
+                        </tr>
+
+                        @if (!string.IsNullOrEmpty(Model.Imagem))
+                        {
+                            <tr>
+                                <td>Imagem</td>
+                                <td><img src="/Conteudo/Anuncios/@Model.Imagem" title="@Model.Imagem" style="width: 400px; height:400px;" /></td>
+                            </tr>
+                        }
+
+
+                        <tr>
+                            <td>Status</td>
+                            <td>@Html.Raw((Model.Ativo) ? "Ativo" : "Inativo")</td>
+                        </tr>
+                        <tr>
+                            <td>Data de Cadastro</td>
+                            <td>@Model.DataVenda.ToShortDateString()</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        <div class="box-footer">
+            <a href="@Url.Action("Editar", "Anuncio", new { Slug = Model.Slug })" class="btn btn-warning">Editar</a>
+            <a href="@Url.Action("Index", "Anuncio")" class="btn btn-info">Voltar</a>
+        </div>
+    </div>
+</div>

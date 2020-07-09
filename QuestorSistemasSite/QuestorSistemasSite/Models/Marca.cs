@@ -19,9 +19,5 @@ namespace QuestorSistemasSite.Models
         [Column("DataCadastro")]
         [Required]
         public DateTime DataCadastro { get; set; }
-
-        [ForeignKey("Modelo")]
-        public int ModeloId { get; set; }
-        public Modelo Modelo { get; set; }
     }
 }

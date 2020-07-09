@@ -174,3 +174,7 @@ C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\Questor
 C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Marca\Detalhes.cshtml.g.cs
 C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Marca\Editar.cshtml.g.cs
 C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Modelo\Detalhes.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Modelo\Editar.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Contato\Detalhes.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Anuncio\Print.cshtml.g.cs
+C:\Users\JuninhoDRZ\source\ProjetoQuestorSistemas\ProjetoQuestorSistemas\QuestorSistemasAdmin\QuestorSistemasAdmin\obj\Debug\netcoreapp3.1\Razor\Views\Anuncio\Pdf.cshtml.g.cs

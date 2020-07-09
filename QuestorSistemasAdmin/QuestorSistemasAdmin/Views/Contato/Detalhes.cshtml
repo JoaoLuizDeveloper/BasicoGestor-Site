@@ -1,0 +1,38 @@
+﻿@using QuestorSistemasAdmin.Models
+@model Contato
+@{
+    ViewData["Title"] = "Detalhes do Contato" + Model.Nome;
+}
+<div class="col-md-12">
+    <div class="box box-warning">
+        <div class="box-body">
+            <div class="form-group">
+            </div>
+            <table class="table table-bordered table-striped responsive">
+                <tbody>
+                    <tr>
+                        <td width="200">Modelo</td>
+                        <td>@Model.Nome</td>
+                    </tr>
+                    <tr>
+                        <td width="200">Modelo</td>
+                        <td>@Model.Nome</td>
+                    </tr>
+                    <tr>
+                        <td width="200">Modelo</td>
+                        <td>@Html.Raw(Model.Descricao)</td>
+                    </tr>
+
+                    <tr>
+                        <td>Data de Cadastro</td>
+                        <td>@Model.DataCadastro.ToShortDateString()</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box-footer">
+            <a href="@Url.Action("Index", "Contato")" class="btn btn-info">Voltar</a>
+        </div>
+    </div>
+</div>

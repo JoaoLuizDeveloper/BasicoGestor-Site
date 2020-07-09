@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    CKEditor
+                    Editar @Model.Slug
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
                         <a class="fa fa-times" href="javascript:;"></a>
@@ -20,6 +20,7 @@
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
+                            <input type="hidden" name="Id" id="Id" value="@Model.Id"/>
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.Marca)
@@ -54,8 +55,9 @@
                                     @Html.DropDownListFor(m => m.Portas, (IEnumerable<SelectListItem>)ViewBag.Portas, "Selecione...", new { @class = "form-control chosen-select" })
                                     @Html.ValidationMessageFor(model => model.Portas)
                                     <br />
+                                    <input type="hidden" name="Imagem" value="@Model.Imagem" />
                                     @Html.LabelFor(model => model.Imagem)
-                                    <input type="file" name="Imagem" title="Imagem" id="Imagem" onchange="function uploadImagem()" required />
+                                    <input type="file" name="Imagem" title="Imagem" id="Imagem" />
                                     @Html.ValidationMessageFor(model => model.Imagem)
                                     <br />
                                     @Html.LabelFor(model => model.Ativo)
