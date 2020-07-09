@@ -8,7 +8,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Cadrastrar Anuncio
+                    Cadastrar Anuncio
                     <span class="tools pull-right">
                         <a class="fa fa-chevron-down" href="javascript:;"></a>
                         <a class="fa fa-times" href="javascript:;"></a>
@@ -19,7 +19,7 @@
                         @using (Html.BeginForm("Create", "Anuncio", FormMethod.Post, new { role = "form", enctype = "multipart/form-data", @class = "form-horizontal" }))
                         {
                             @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true) 
+                            @Html.ValidationSummary(true)
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.Marca)
@@ -63,7 +63,7 @@
                                     @Html.ValidationMessageFor(model => model.Ativo)
                                     <br />
                                     <button type="submit" class="btn btn-primary">Enviar</button>
-                                </div>                                    
+                                </div>
                             </div>
                         }
                     </div>
@@ -73,10 +73,13 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="/js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-<script type="text/javascript" src="/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-<script>jQuery(document).ready(function(){
-        $('.wysihtml5').wysihtml5();
-});
-</script>
+    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('.wysihtml5').wysihtml5();
+        });
+    </script>
+
+     

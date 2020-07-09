@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-QuestorSistemasAdmin-6B1F1EA7-D8A9-4CE3-B764-89747F53557C</UserSecretsId>
+	<RazorCompileOnPublish>false</RazorCompileOnPublish>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,26 +6,28 @@
 
 <div class="box-section contact-section triggerAnimation animated" data-animate="flipInY">
     <h2>Contact us</h2>
-    <form id="contact-form">
+    <form id="contact-form" action="#" method="post">
         <div class="text-fields">
             <div class="float-input">
-                <input name="name" id="name" type="text" placeholder="Name">
+                <input name="Nome" id="name" type="text" placeholder="Name">
                 <span><i class="fa fa-user"></i></span>
+                <span id="Error1"></span>
             </div>
             <div class="float-input">
-                <input name="mail" id="mail" type="text" placeholder="e-mail">
+                <input name="Email" id="email" type="text" placeholder="e-mail">
                 <span><i class="fa fa-envelope-o"></i></span>
+                <span id="Error2"></span>
             </div>
             <div class="float-input">
-                <input name="website" id="website" type="text" placeholder="website">
+                <input name="website" id="website" type="text" placeholder="website" disabled="disabled">
                 <span><i class="fa fa-link"></i></span>
             </div>
         </div>
         <div class="comment-area">
-            <textarea name="comment" id="comment" placeholder="Message"></textarea>
+            <textarea name="Descricao" id="comment" placeholder="Message"></textarea>
         </div>
         <div class="submit-area">
-            <button type="submit" name="contact-submit" id="submit_contact">
+            <button type="submit" name="contact-submit" id="submit">
                 <i class="fa fa-envelope-o"></i>
                 Send Message
             </button>
@@ -33,3 +35,59 @@
         <div id="msg" class="message"></div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $('#contact-form').submit(function (e) {
+        $('#submit').prop("disabled", true);
+        e.preventDefault();
+        e.returnValue = false;        
+
+            var erro = 0;
+        $('#Error1, #Error2').css('display', 'none');
+
+            var nome = $('#Nome').val();
+            var email = $('#Email').val();
+            var descricao = $('#Descricao').val();
+
+            if (nome == "") {
+                $('#submit').prop("disabled", false);
+                $('#Error1').html('Preencha o Nome');
+                $('#Error1').css('display', 'block');
+                erro++;
+            }
+
+            if (email == "") {
+                $('#submit').prop("disabled", false);
+                $('#Error2').html('Preencha o E-mail');
+                $('#Error2').css('display', 'block');
+                erro++;
+            }
+
+
+            if (erro > 0) {
+                return false;
+            }
+
+            $.ajax({
+                    url: '@Url.Action("Index", "Contato")',
+                    type: 'Post',
+                    dataType: 'json',
+                    data: { Nome: nome, Email: email, Descricao: descricao},
+                    success: function (result) {
+                    if (result != null) {
+                        swal("Cadastrado!", "Seu cadastro foi realizado com sucesso!", "success");
+                        //location.reload();
+                    }
+                    else {
+                        swal("Falha ao Cadastrar!", "Confira novamente os campos!", "error");
+                        console.log(model);
+                    }
+                       swal("Cadastrado!", "Seu cadastro foi realizado com sucesso!", "success");
+                    },
+                    error: function (result) {
+                        swal("Falha ao Cadastrar!", "Confira novamente os campos!", "error");
+                        console.log(model);
+                    }
+                });
+            });
+</script>

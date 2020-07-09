@@ -21,20 +21,36 @@
                             <div class="btn-group">
                                 <a href="@Url.Action("Create", "Anuncio")">
                                     <button id="editable-sample_new" class="btn btn-primary">
-                                        Add New <i class="fa fa-plus"></i>
+                                        Add Novo <i class="fa fa-plus"></i>
                                     </button>
                                 </a>
                             </div>
+
+                            <div class="btn-group" style="margin-left: 20%">
+                                @using (Html.BeginForm("Index", "Anuncio", method: FormMethod.Get))
+                                {
+                                    <div class="datepicker">
+                                        <label for="De">De</label>
+                                        <input type="date" class="input" name="Inicial" id="De" min="01/01/2020" value="@ViewBag.Inicial">
+                                        
+                                        <label for="Ate">Até</label>
+                                        <input type="date" class="input" name="Final" id="Ate" min="01/01/2020" value="@ViewBag.Final">
+
+                                        <button class="btn btn-dark fa fa-search" style="margin-left: 5px;"> Pesquisar</button>
+                                    </div>
+                                }
+                            </div>
+
                             <div class="btn-group pull-right">
                                 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                     Relatorios <i class="fa fa-angle-down"></i>
                                 </button>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="@Url.Action("Print","Anuncio")" target="_blank">Print</a></li>
-                                    <li><a href="@Url.Action("Pdf","Anuncio")" target="_blank">Relatorio PDF</a></li>
+                                    <li><a href="@Url.Action("Print","Anuncio", new { Inicial= ViewBag.Inicial, Final = ViewBag.Final})" target="_blank">Imprimir</a></li>
+                                    <li><a href="@Url.Action("Pdf","Anuncio", new { Inicial= ViewBag.Inicial, Final = ViewBag.Final})" target="_blank">Relatorio PDF</a></li>
                                 </ul>
                             </div>
-                        </div>
+                            </div>
                         <br />
                         <div class="space15"></div>
                         <table class="table table-striped table-hover table-bordered" id="editable-sample">
@@ -43,6 +59,7 @@
                                     <th>Marca</th>
                                     <th>Valor Venda</th>
                                     <th>Cor</th>
+                                    <th>Data</th>
                                     <th>Detalhes</th>
                                     <th>Editar</th>
                                     <th>Deletar</th>
@@ -57,6 +74,7 @@
                                             <td>@item.Marca</td>
                                             <td>@item.ValorVenda</td>
                                             <td>@item.Cor</td>
+                                            <td>@item.DataVenda.ToString("dd/MM/yyyy")</td>
                                             <td><a href="@Url.Action("Detalhes", "Anuncio", new { Slug = item.Slug })">Detalhes</a></td>
                                             <td><a class="edit" href="@Url.Action("Editar", "Anuncio", new { Slug = item.Slug})">Editar</a></td>
                                             <td><a class="delete" href="@Url.Action("Excluir", "Anuncio", new { id = item.Id})">Deletar</a></td>
@@ -71,3 +89,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('.datepicker').datetimepicker({
+        format: "DD/MM/YYYY HH:mm",
+        locale: 'pt-br',
+        minDate: new Date(2020, 01, 01),
+        maxDate: new Date(2050, 01, 01)
+    });
+</script>

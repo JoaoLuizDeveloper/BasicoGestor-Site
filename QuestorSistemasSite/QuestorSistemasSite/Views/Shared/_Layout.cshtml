@@ -22,7 +22,7 @@
 
             <partial name="partial/_Social" />
 
-        </div>    
+        </div>
 
         <div id="content">
             @RenderBody()
@@ -31,10 +31,11 @@
         </div>
     </div>
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>*@
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>*@
 
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/js/jquery.migrate.js"></script>
     <script type="text/javascript" src="/js/jquery.appear.js"></script>
     <script type="text/javascript" src="/js/jquery.magnific-popup.min.js"></script>
@@ -47,6 +48,64 @@
     <script type="text/javascript" src="/js/waypoint.min.js"></script>
     <script type="text/javascript" src="/js/plugins-scroll.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script type="text/javascript">
+        $('#submit').click(function (e) {
+
+            var erro = 0;
+            $('#Error1, #Error2').css('display', 'none');
+
+            var nome = $('#Nome').val();
+            var email = $('#Email').val();
+            var descricao = $('#Descricao').val();
+
+            if (nome == "") {
+                $('#submit').prop("disabled", false);
+                $('#Error1').html('Preencha o Nome');
+                $('#Error1').css('display', 'block');
+                erro++;
+            }
+
+            if (email == "") {
+                $('#submit').prop("disabled", false);
+                $('#Error2').html('Preencha o E-mail');
+                $('#Error2').css('display', 'block');
+                erro++;
+            }
+
+
+            if (erro > 0) {
+                return false;
+            }
+
+        e.preventDefault();
+        var data = $("#contact-form").serialize();
+
+        $.ajax({
+            url: "@Url.Action("Index", "Contato")",
+            cache: false,
+            async: true,
+            type: "POST",
+            data: data,
+            success: function (result) {
+                if (result != null) {
+                    swal("Cadastrado!", "Seu cadastro foi realizado com sucesso!", "success")
+                        .then((result) => {
+                        if (result.value)
+                            location.reload(true)
+                    })
+                } else {
+                    swal("Falha ao Cadastrar!", "Confira novamente os campos!", "error");
+                }
+            }
+        });
+        return false;
+    });
+
+    </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

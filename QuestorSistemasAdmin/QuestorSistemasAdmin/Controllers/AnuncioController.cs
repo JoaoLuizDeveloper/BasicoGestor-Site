@@ -27,9 +27,21 @@ namespace QuestorSistemasAdmin.Controllers
             db = contexto;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string Inicial = "", string Final = "")
         {
-            var model = db.Anuncio.Where(x=>x.Ativo == true).ToList();
+            var model = db.Anuncio.Where(x => x.Ativo).ToList();
+            if(!string.IsNullOrEmpty(Inicial))
+            {
+                model = model.Where(x => x.DataVenda >= Convert.ToDateTime(Inicial)).ToList();
+                ViewBag.Inicial = Inicial;
+            }
+            
+            if(!string.IsNullOrEmpty(Final))
+            {
+                model = model.Where(x => x.DataVenda <= Convert.ToDateTime(Final)).ToList();
+                ViewBag.Final = Final;
+            }
+
             return View(model);
         }
 
@@ -254,19 +266,49 @@ namespace QuestorSistemasAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Print()
+        public IActionResult Print(string Inicial = "", string Final = "")
         {
             var model = db.Anuncio.Where(x => x.Ativo).ToList();
-            
+            if (!string.IsNullOrEmpty(Inicial))
+            {
+                model = model.Where(x => x.DataVenda >= Convert.ToDateTime(Inicial)).ToList();
+                ViewBag.Inicial = Inicial;
+            }
+
+            if (!string.IsNullOrEmpty(Final))
+            {
+                model = model.Where(x => x.DataVenda <= Convert.ToDateTime(Final)).ToList();
+                ViewBag.Final = Final;
+            }
+
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Pdf()
+        public IActionResult Pdf(string Inicial = "", string Final = "")
         {
             var model = db.Anuncio.Where(x => x.Ativo).ToList();
+            if (!string.IsNullOrEmpty(Inicial))
+            {
+                model = model.Where(x => x.DataVenda >= Convert.ToDateTime(Inicial)).ToList();
+                ViewBag.Inicial = Inicial;
+            }
+
+            if (!string.IsNullOrEmpty(Final))
+            {
+                model = model.Where(x => x.DataVenda <= Convert.ToDateTime(Final)).ToList();
+                ViewBag.Final = Final;
+            }
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> SearchMarca(string Marca)
+        {
+            var marca = db.Marca.Where(c => c.MarcaVeiculo.Contains(Marca)).FirstOrDefault();
+
+            return Json(marca);            
         }
     }
 }

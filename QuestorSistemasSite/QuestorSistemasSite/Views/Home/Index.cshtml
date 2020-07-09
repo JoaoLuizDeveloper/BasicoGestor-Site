@@ -15,8 +15,8 @@
                 foreach (var item in Anuncios)
                 {
                     <li>
-                        <img alt="" src="/upload/flex/3.jpg" />
-                        <p class="flex-caption">@item.Modelo</p>
+                        <img alt="" src="/Conteudo/Anuncios/@item.Imagem" />
+                        <p class="flex-caption">@Html.Raw(item.Modelo)</p>
                     </li>
                 }
             }
@@ -33,12 +33,7 @@
             {
                 <div class="col-md-5">
                     <div class="image-box">
-                        <img alt="" src="/upload/image1.jpg">
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="cont-box">
-                        <h2>@item.MarcaVeiculo</h2>
+                        <img alt="" src="/Conteudo/Marcas/@item.Imagem">
                     </div>
                 </div>
             }
@@ -46,51 +41,10 @@
     </div>
 </div>
 
-<div class="row triggerAnimation animated" data-animate="bounceInLeft">
-    <p style="text-align: center;">Modelos</p>
-    <div class="col-md-6">
-        <div class="box-section toggle-section">
-            <h2>Toogle Content</h2>
-            <div class="accordion-box">
-
-                <div class="accord-elem active">
-                    <div class="accord-title">
-                        <h3>Author Resources</h3>
-                        <a class="accord-link" href="#"></a>
-                    </div>
-                    <div class="accord-content">
-                        <img alt="" src="/upload/img1.jpg">
-                        <p>Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti</p>
-                    </div>
-                </div>
-
-                <div class="accord-elem">
-                    <div class="accord-title">
-                        <h3>Marketplace Basics</h3>
-                        <a class="accord-link" href="#"></a>
-                    </div>
-                    <div class="accord-content">
-                        <img alt="" src="upload/img1.jpg">
-                        <p>Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti</p>
-                    </div>
-                </div>
-
-                <div class="accord-elem">
-                    <div class="accord-title">
-                        <h3>Affiliate Program</h3>
-                        <a class="accord-link" href="#"></a>
-                    </div>
-                    <div class="accord-content">
-                        <img alt="" src="upload/img1.jpg">
-                        <p>Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="row triggerAnimation animated" data-animate="bounceInLeft">   
     <div class="col-md-6">
         <div class="box-section skills-section">
-            <h2>Contagem</h2>
+            <h2>Contagem dos dados</h2>
             <div class="skills-progress">
                 <p>Anuncios <span>@Anuncios.Count%</span></p>
                 <div class="meter nostrips wp">

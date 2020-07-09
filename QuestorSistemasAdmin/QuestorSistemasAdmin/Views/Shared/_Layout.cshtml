@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -23,7 +23,7 @@
 
             <partial name="partial/_Header" />
             @*<partial name="partial/_BreadCrumb" />*@
-            <div class="wrapper">
+            <div class="wrapper" style="min-height: 500px;">
 
                 @RenderBody()
 
@@ -32,14 +32,12 @@
             <partial name="partial/_Footer" />
         </div>
     </section>
-    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="/js/jquery-ui-1.9.2.custom.min.js"></script>
     <script src="/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/modernizr.min.js"></script>
     <script src="/js/jquery.nicescroll.js"></script>
-    <script src="/js/easypiechart/jquery.easypiechart.js"></script>
-    <script src="/js/easypiechart/easypiechart-init.js"></script>
     <script src="/js/sparkline/jquery.sparkline.js"></script>
     <script src="/js/sparkline/sparkline-init.js"></script>
     <script src="/js/iCheck/jquery.icheck.js"></script>
@@ -52,9 +50,32 @@
     <script src="/js/calendar/clndr.js"></script>
     <script src="/js/calendar/evnt.calendar.init.js"></script>
     <script src="/js/calendar/moment-2.2.1.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="/js/scripts.js"></script>
     <script src="/js/dashboard-chart-init.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#Marca").blur(function (e) {
+            var data = "{ 'Marca': '" + this.value + "' }"
+            $.ajax({
+                url: '@Url.Action("SearchMarca", "Anuncio")',
+                cache: false,
+                async: true,
+                type: "POST",
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    if (data != null) {
+                        if (data.Nome != null && data.Nome != "")
+                            document.getElementById('Marca').value = data.Marca;
+                    } else {
+                        document.getElementById('Marca').value = "";
+                    }
+                }
+            });
+        });
+    });
+    </script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
