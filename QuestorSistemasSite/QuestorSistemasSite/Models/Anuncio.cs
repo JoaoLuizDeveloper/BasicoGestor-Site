@@ -15,6 +15,7 @@ namespace QuestorSistemasSite.Models
         public int Id { get; set; }
         [Required]
         public string Modelo { get; set; }
+        public string Descricao { get; set; }
         public string Imagem { get; set; }
         [Required]
         public string Marca { get; set; }

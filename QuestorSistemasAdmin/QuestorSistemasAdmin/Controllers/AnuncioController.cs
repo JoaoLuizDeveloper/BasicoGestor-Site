@@ -48,25 +48,7 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Create ()
         {
-            ViewBag.Marca = db.Marca.ToList().Select(u => new SelectListItem()
-            {
-                Text = u.MarcaVeiculo,
-                Value = u.Id.ToString()
-            }).ToList<SelectListItem>();
-
-            ViewBag.Modelos = db.Modelo.ToList();
-
-            ViewBag.TipoCombustivel = new SelectList(Enum.GetValues(typeof(TipoCombustivel)).Cast<TipoCombustivel>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            }).ToList(), "Value", "Text");
-
-            ViewBag.Portas = new SelectList(Enum.GetValues(typeof(Portas)).Cast<Portas>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            }).ToList(), "Value", "Text");
+            ViewBags();
 
             return View();
         }
@@ -121,6 +103,9 @@ namespace QuestorSistemasAdmin.Controllers
 
                     if (ModelState.IsValid)
                     {
+                        model.Marca = db.Marca.Find(Int32.Parse(model.Marca)).MarcaVeiculo;
+                        model.Modelo = db.Modelo.Find(Int32.Parse(model.Modelo)).Nome;
+
                         if (string.IsNullOrEmpty(model.Slug))
                         {
                             model.Slug = model.Marca.ToLower() + model.Modelo.ToLower();
@@ -131,22 +116,21 @@ namespace QuestorSistemasAdmin.Controllers
                             byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(model.Slug);
                             model.Slug = System.Text.Encoding.ASCII.GetString(bytes);
                         }
-                        model.DataVenda = DateTime.Now;
-                        model.Marca = db.Marca.Find(model.Marca).MarcaVeiculo;
-                        model.Modelo = db.Modelo.Find(model.Modelo).Nome;
+                        model.DataVenda = DateTime.Now;                        
                         db.Entry(model).State = EntityState.Added;
                         db.SaveChanges();
 
                         return RedirectToAction("Detalhes", "Anuncio", new { Slug = model.Slug });
                     }
-                    return View(model);
                 }
                 catch (Exception e)
-                { 
+                {
+                    ViewBags();
                     return View(model);                
                 }
             }
-            
+
+            ViewBags();
             return View(model);
         }
         
@@ -158,17 +142,7 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Editar(string Slug)
         {
-            ViewBag.TipoCombustivel = new SelectList(Enum.GetValues(typeof(TipoCombustivel)).Cast<TipoCombustivel>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            }).ToList(), "Value", "Text");
-
-            ViewBag.Portas = new SelectList(Enum.GetValues(typeof(Portas)).Cast<Portas>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            }).ToList(), "Value", "Text");
+            ViewBags();
 
             var model = db.Anuncio.FirstOrDefault(x => x.Slug == Slug);
             return View(model);
@@ -224,17 +198,21 @@ namespace QuestorSistemasAdmin.Controllers
 
                     if (ModelState.IsValid)
                     {
+                        model.Marca = db.Marca.Find(Int32.Parse(model.Marca)).MarcaVeiculo;
+                        model.Modelo = db.Modelo.Find(Int32.Parse(model.Modelo)).Nome;
                         db.Entry(model).State = EntityState.Modified;
                         db.SaveChanges();
                         return RedirectToAction("Detalhes", "Anuncio", new { Slug = model.Slug });
                     }
-
-                    return View(model);
                 }
                 catch (Exception e)
-                { }
+                {
+                    ViewBags();
+                    return View(model);
+                }
             }
-
+            
+            ViewBags();
             return View(model);
         }
 
@@ -319,6 +297,27 @@ namespace QuestorSistemasAdmin.Controllers
             var m = Json(data);
             
             return Json(data);            
+        }
+
+        void ViewBags()
+        {
+            ViewBag.Marca = db.Marca.ToList().Select(u => new SelectListItem()
+            {
+                Text = u.MarcaVeiculo,
+                Value = u.Id.ToString()
+            }).ToList<SelectListItem>();
+
+            ViewBag.TipoCombustivel = new SelectList(Enum.GetValues(typeof(TipoCombustivel)).Cast<TipoCombustivel>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text");
+
+            ViewBag.Portas = new SelectList(Enum.GetValues(typeof(Portas)).Cast<Portas>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text");
         }
     }
 }

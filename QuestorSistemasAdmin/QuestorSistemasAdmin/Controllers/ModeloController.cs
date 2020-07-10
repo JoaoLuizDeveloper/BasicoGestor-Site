@@ -31,11 +31,7 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Marca = db.Marca.ToList().Select(u => new SelectListItem()
-            {
-                Text = u.MarcaVeiculo,
-                Value = u.Id.ToString()
-            }).ToList<SelectListItem>();
+            Bags();
 
             return View();
         }
@@ -64,11 +60,13 @@ namespace QuestorSistemasAdmin.Controllers
         public IActionResult Detalhes(int id)
         {
             var model = db.Modelo.FirstOrDefault(x => x.Id == id);
+            ViewBags(model.Idmarca);
             return View(model);
         }
 
         public IActionResult Editar(int id)
         {
+            Bags();
             var model = db.Modelo.FirstOrDefault(x => x.Id == id);
             return View(model);
         }
@@ -99,6 +97,26 @@ namespace QuestorSistemasAdmin.Controllers
             db.Entry(model).State = EntityState.Deleted;
             db.SaveChanges();
             return RedirectToAction("Index", "Modelo");
+        }
+
+        void Bags()
+        {
+            ViewBag.Marca = db.Marca.ToList().Select(u => new SelectListItem()
+            {
+                Text = u.MarcaVeiculo,
+                Value = u.Id.ToString()
+            }).ToList<SelectListItem>();
+        }
+
+        void ViewBags(int id)
+        {
+            var marca = db.Marca.ToList().Select(u => new SelectListItem()
+            {
+                Text = u.MarcaVeiculo,
+                Value = u.Id.ToString()
+            }).ToList<SelectListItem>();
+
+            ViewBag.Marca = marca.FirstOrDefault(x => x.Value == id.ToString()).Text;
         }
     }
 }

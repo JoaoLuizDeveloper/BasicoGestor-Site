@@ -1,7 +1,7 @@
 ﻿@using QuestorSistemasAdmin.Models
 @model Anuncio
 @{
-    ViewData["Title"] = "Editar" + @Model.Slug;
+    ViewData["Title"] = "Editar";
 }
 
 <link rel="stylesheet" href="/chosen/docsupport/prism.css">
@@ -24,16 +24,29 @@
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)
+                            @Html.HiddenFor(m => m.DataVenda)
                             <input type="hidden" name="Id" id="Id" value="@Model.Id" />
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.Marca)
-                                    @Html.TextBoxFor(model => model.Marca, new { @class = "form-control", Maxlength = "300" })
-                                    @Html.ValidationMessageFor(model => model.Marca)
+                                    <select data-placeholder="Selecionar..." name="Marca" id="Marca" class="form-control chosen-select" onchange="modelos()">
+                                        <option value="">Selecionar...</option>
+                                        @foreach (var item in ViewBag.Marca)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    </select>
                                     <br />
-                                    @Html.LabelFor(model => model.Modelo)
-                                    @Html.TextAreaFor(model => model.Modelo, new { @class = "form-control ckeditor", Maxlength = "100", rows = "6" })
-                                    @Html.ValidationMessageFor(model => model.Modelo)
+
+                                    <label id="lab">Modelos</label>
+                                    <select name="Modelo" id="Modelo" class="form-control">
+                                        <option value="">Selecionar...</option>
+                                    </select>
+
+                                    <br />
+                                    @Html.LabelFor(model => model.Descricao)
+                                    @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control ckeditor", Maxlength = "100", rows = "6" })
+                                    @Html.ValidationMessageFor(model => model.Descricao)
                                     <br />
                                     @Html.LabelFor(model => model.ValorCompra)
                                     @Html.TextBoxFor(model => model.ValorCompra, new { @class = "form-control", Maxlength = "300" })
@@ -87,6 +100,35 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.wysihtml5').wysihtml5();
+
         $(".chosen-select").chosen();
     });
+</script>
+
+<script>
+    function modelos() {
+
+        var select = document.getElementById('Marca');
+        var value = select.options[select.selectedIndex].value;
+        $.ajax({
+            url: '@Url.Action("SearchMarca", "Anuncio")',
+            cache: false,
+            async: true,
+            type: "POST",
+            data: { id: value },
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    $("#Modelo").empty();
+
+                    data.forEach(function (item) {
+                        $('#Modelo').append($('<option>', {
+                            value: item.id,
+                            text: item.nome
+                        }));
+                    });
+                }
+            }
+        });
+    }
 </script>

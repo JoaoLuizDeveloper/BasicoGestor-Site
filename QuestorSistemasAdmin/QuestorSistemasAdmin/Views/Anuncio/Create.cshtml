@@ -28,6 +28,7 @@
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.Marca)
                                     <select data-placeholder="Selecionar..." name="Marca" id="Marca" class="form-control chosen-select" onchange="modelos()">
+                                        <option value="">Selecionar...</option>
                                         @foreach (var item in ViewBag.Marca)
                                         {
                                             <option value="@item.Value">@item.Text</option>
@@ -35,11 +36,11 @@
                                     </select>
                                     <br />
 
-                                    <label id="lab" style="display:none">Modelos</label>
-                                    <select name="Modelo" id="Modelo" class="form-control chosen-select" style="display:none">
-                                        <option value="">Selecione...</option>
+                                    <label id="lab">Modelos</label>
+                                    <select name="Modelo" id="Modelo" class="form-control">
+                                        <option value="">Selecionar...</option>
                                     </select>
-
+                                    <br />
                                     <br />
                                     @Html.LabelFor(model => model.Descricao)
                                     @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control ckeditor", Maxlength = "100", rows = "6" })
@@ -96,7 +97,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.wysihtml5').wysihtml5();
-
         $(".chosen-select").chosen();
     });
 </script>
@@ -115,20 +115,14 @@
             dataType: "json",
             success: function (data) {
                 if (data != null) {
-                    document.getElementById("lab").style.display = 'block';
-                    //var el = document.getElementsByClassName("remover");
-                    //el.removeChild(el);
+                    $("#Modelo").empty();
 
-                    for (var i = 0; i < data.length; i++)
-                    {
-                        let opt = document.createElement("option");
-                        opt.value = data[i].id;
-                        opt.textContent = data[i].nome;
-                        opt.className = "remover";
-                        document.getElementById("Modelo").appendChild(opt);
-                    }
-
-                    document.getElementById("Modelo").style.display = "block";
+                    data.forEach(function (item) {
+                        $('#Modelo').append($('<option>', {
+                            value: item.id,
+                            text: item.nome
+                        }));
+                    });
                 }
             }
         });

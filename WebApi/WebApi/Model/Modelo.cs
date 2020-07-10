@@ -15,10 +15,13 @@ namespace QuestorSistemasSite.Models
         public int Id { get; set; }
 
         [Required]
-        public string ModeloDetalhes { get; set; }
+        public string Nome { get; set; }
 
         [Column("DataCadastro")]
         [Required]
         public DateTime DataCadastro { get; set; }
+
+        public int Idmarca { get; set; }
+        public Marca Marca { get; set; }
     }
 }

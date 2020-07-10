@@ -25,7 +25,8 @@
                                 <div class="col-sm-12">
                                     <br />
                                     @Html.LabelFor(model => model.Marca)
-                                    <select data-placeholder="Selecionar..." name="IdMarca" id="IdMarca" class="form-control chosen-select">
+                                    <select name="IdMarca" id="IdMarca" class="form-control">
+                                        <option value="">Selecionar...</option>
                                         @foreach (var item in ViewBag.Marca)
                                         {
                                             <option value="@item.Value">@item.Text</option>
@@ -33,7 +34,7 @@
                                     </select>
 
                                     @Html.LabelFor(model => model.Nome)
-                                    @Html.TextAreaFor(model => model.Nome, new { @class = "form-control"})
+                                    @Html.TextAreaFor(model => model.Nome, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(model => model.Nome)
 
                                     <br />
@@ -51,8 +52,9 @@
 <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="/js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
 <script type="text/javascript" src="/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-<script>
-    jQuery(document).ready(function () {
+
+<script type="text/javascript">
+    $(document).ready(function () {
         $('.wysihtml5').wysihtml5();
     });
 </script>
