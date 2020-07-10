@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QuestorSistemasAdmin.Data;
 using QuestorSistemasAdmin.Models;
@@ -30,6 +31,12 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Marca = db.Marca.ToList().Select(u => new SelectListItem()
+            {
+                Text = u.MarcaVeiculo,
+                Value = u.Id.ToString()
+            }).ToList<SelectListItem>();
+
             return View();
         }
 

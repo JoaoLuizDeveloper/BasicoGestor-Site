@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Cadastrar Anuncio";
 }
+
+<link rel="stylesheet" href="/chosen/docsupport/prism.css">
+<link rel="stylesheet" href="/chosen/chosen.css">
+
 <div class="wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -23,12 +27,23 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     @Html.LabelFor(model => model.Marca)
-                                    @Html.TextBoxFor(model => model.Marca, new { @class = "form-control", Maxlength = "300" })
-                                    @Html.ValidationMessageFor(model => model.Marca)
+                                    <select data-placeholder="Selecionar..." name="Marca" id="Marca" class="form-control chosen-select" onchange="modelos()">
+                                        @foreach (var item in ViewBag.Marca)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    </select>
                                     <br />
-                                    @Html.LabelFor(model => model.Modelo)
-                                    @Html.TextAreaFor(model => model.Modelo, new { @class = "form-control ckeditor", Maxlength = "100", rows = "6" })
-                                    @Html.ValidationMessageFor(model => model.Modelo)
+
+                                    <label id="lab" style="display:none">Modelos</label>
+                                    <select name="Modelo" id="Modelo" class="form-control chosen-select" style="display:none">
+                                        <option value="">Selecione...</option>
+                                    </select>
+
+                                    <br />
+                                    @Html.LabelFor(model => model.Descricao)
+                                    @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control ckeditor", Maxlength = "100", rows = "6" })
+                                    @Html.ValidationMessageFor(model => model.Descricao)
                                     <br />
                                     @Html.LabelFor(model => model.ValorCompra)
                                     @Html.TextBoxFor(model => model.ValorCompra, new { @class = "form-control", Maxlength = "300" })
@@ -73,13 +88,49 @@
     </div>
 </div>
 
-    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="/js/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-    <script type="text/javascript" src="/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            $('.wysihtml5').wysihtml5();
-        });
-    </script>
+<script src="/chosen/docsupport/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
+<script src="/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+<script src="/chosen/docsupport/init.js" type="text/javascript" charset="utf-8"></script>
 
-     
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.wysihtml5').wysihtml5();
+
+        $(".chosen-select").chosen();
+    });
+</script>
+
+<script>
+    function modelos() {
+        
+        var select = document.getElementById('Marca');
+        var value = select.options[select.selectedIndex].value;
+        $.ajax({
+            url: '@Url.Action("SearchMarca", "Anuncio")',
+            cache: false,
+            async: true,
+            type: "POST",
+            data: { id: value },
+            dataType: "json",
+            success: function (data) {
+                if (data != null) {
+                    document.getElementById("lab").style.display = 'block';
+                    //var el = document.getElementsByClassName("remover");
+                    //el.removeChild(el);
+
+                    for (var i = 0; i < data.length; i++)
+                    {
+                        let opt = document.createElement("option");
+                        opt.value = data[i].id;
+                        opt.textContent = data[i].nome;
+                        opt.className = "remover";
+                        document.getElementById("Modelo").appendChild(opt);
+                    }
+
+                    document.getElementById("Modelo").style.display = "block";
+                }
+            }
+        });
+    }
+</script>

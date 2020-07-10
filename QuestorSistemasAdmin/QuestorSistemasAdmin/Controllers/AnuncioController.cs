@@ -13,6 +13,7 @@ using QuestorSistemasAdmin.Models;
 using System.Web;
 using Microsoft.AspNetCore.Http;
 using System.Text.RegularExpressions;
+using QuestorSistemasAdmin.ViewModel;
 
 namespace QuestorSistemasAdmin.Controllers
 {
@@ -47,6 +48,14 @@ namespace QuestorSistemasAdmin.Controllers
 
         public IActionResult Create ()
         {
+            ViewBag.Marca = db.Marca.ToList().Select(u => new SelectListItem()
+            {
+                Text = u.MarcaVeiculo,
+                Value = u.Id.ToString()
+            }).ToList<SelectListItem>();
+
+            ViewBag.Modelos = db.Modelo.ToList();
+
             ViewBag.TipoCombustivel = new SelectList(Enum.GetValues(typeof(TipoCombustivel)).Cast<TipoCombustivel>().Select(v => new SelectListItem
             {
                 Text = v.ToString(),
@@ -122,8 +131,9 @@ namespace QuestorSistemasAdmin.Controllers
                             byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(model.Slug);
                             model.Slug = System.Text.Encoding.ASCII.GetString(bytes);
                         }
-                        model.DataVenda = DateTime.Now;                        
-
+                        model.DataVenda = DateTime.Now;
+                        model.Marca = db.Marca.Find(model.Marca).MarcaVeiculo;
+                        model.Modelo = db.Modelo.Find(model.Modelo).Nome;
                         db.Entry(model).State = EntityState.Added;
                         db.SaveChanges();
 
@@ -236,7 +246,6 @@ namespace QuestorSistemasAdmin.Controllers
             return RedirectToAction("Index", "Anuncio");   
         }
 
-
         [HttpPost]
         public async Task<IActionResult> EnviarImagem(IFormFile Imagem)
         {
@@ -304,11 +313,12 @@ namespace QuestorSistemasAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> SearchMarca(string Marca)
+        public JsonResult SearchMarca(string id)
         {
-            var marca = db.Marca.Where(c => c.MarcaVeiculo.Contains(Marca)).FirstOrDefault();
-
-            return Json(marca);            
+            var data = db.Modelo.Where(c => c.Idmarca == Int32.Parse(id)).ToList();
+            var m = Json(data);
+            
+            return Json(data);            
         }
     }
 }

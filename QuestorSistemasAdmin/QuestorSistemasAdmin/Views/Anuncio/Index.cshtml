@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Anuncios";
 }
-
 <div class="wrapper">
     <div class="row">
         <div class="col-sm-12">
@@ -21,7 +20,7 @@
                             <div class="btn-group">
                                 <a href="@Url.Action("Create", "Anuncio")">
                                     <button id="editable-sample_new" class="btn btn-primary">
-                                        Add Novo <i class="fa fa-plus"></i>
+                                        Cadastrar <i class="fa fa-plus"></i>
                                     </button>
                                 </a>
                             </div>
@@ -89,12 +88,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $('.datepicker').datetimepicker({
-        format: "DD/MM/YYYY HH:mm",
-        locale: 'pt-br',
-        minDate: new Date(2020, 01, 01),
-        maxDate: new Date(2050, 01, 01)
-    });
-</script>

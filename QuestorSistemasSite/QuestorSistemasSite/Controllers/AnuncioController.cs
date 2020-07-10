@@ -19,7 +19,16 @@ namespace QuestorSistemasSite.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = db.Anuncio.Where(x=> x.Ativo).ToList();
+            return View(model);
+        }
+
+        public IActionResult Detalhes(string Slug)
+        {
+            var model = db.Anuncio.FirstOrDefault(x => x.Slug == Slug);
+            ViewBag.Before = db.Anuncio.FirstOrDefault(x => x.Id == model.Id - 1) != null ? db.Anuncio.FirstOrDefault(x => x.Id == model.Id - 1).Slug : model.Slug;
+            ViewBag.After = db.Anuncio.FirstOrDefault(x => x.Id == model.Id + 1) != null ? db.Anuncio.FirstOrDefault(x => x.Id == model.Id + 1).Slug : model.Slug;
+            return View(model);
         }
     }
 }

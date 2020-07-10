@@ -1,0 +1,54 @@
+﻿@using QuestorSistemasSite.Models
+@model Anuncio
+@{
+    ViewData["Title"] = "Detalhes" + Model.Slug;
+    var comb = @Model.Combustível == "1" ? "Gasolina" : (@Model.Combustível == "2" ? "Alcool" : "Gas");
+}
+
+<div class="box-section banner-section triggerAnimation animated" data-animate="rollIn">
+    <div class="banner">
+        <img src="/upload/banners/2.jpg" alt="">
+        <h1><span>Detalhes</span></h1>
+    </div>
+    <div class="pager-line">
+        <a class="prev" href="@Url.Action("Detalhes", "Anuncio", new { Slug = @ViewBag.Before})"><i class="fa fa-long-arrow-left"></i>Previous Page</a>
+        <a class="next" href="@Url.Action("Detalhes", "Anuncio", new { Slug = @ViewBag.After})"><i class="fa fa-long-arrow-right"></i>Next Page</a>
+        @*<ul>
+            <li><a href="@Url.Action("Index","Home")">Home</a></li>
+            <li><a href="@Url.Action("Index","Anuncio")">Voltar</a></li>
+        </ul>*@
+    </div>
+</div>
+        
+<div class="single-post triggerAnimation animated" data-animate="flipInY">
+    <img src="/Conteudo/Anuncios/@Model.Imagem" alt="@Model.Imagem">
+    <div class="single-post-content">
+        <h1>@Model.Marca</h1>
+        <ul class="post-tags">
+            <li>
+                <i class="fa fa-calendar-o"> </i>
+                <span>@Model.DataVenda.ToString("dd/MM/yyyy")</span>
+            </li>
+            <li>
+                <i>Final Placa @Model.FinalPlaca</i>
+            </li>
+            <li>
+                <i>Combustivel</i>
+                <a href="#">@comb</a>
+            </li>
+            <li>
+                <i>Cor</i>
+                <a href="#">@Model.Cor</a>
+            </li>
+            <li>
+                <i>Portas <a href="#">@Model.Portas</a></i>
+                
+            </li>
+            <li>
+                <i class="fa fa-dollar"> </i>
+                <a href="#">@Model.ValorVenda</a>
+            </li>
+        </ul>
+        @Html.Raw(Model.Modelo)
+    </div>
+</div>

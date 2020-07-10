@@ -21,5 +21,7 @@ namespace QuestorSistemasAdmin.Models
         [Column("DataCadastro")]
         [Required]
         public DateTime DataCadastro { get; set; }
+
+        public ICollection<Modelo> Modelos { get; set; }
     }
 }

@@ -43,7 +43,7 @@
         e.returnValue = false;        
 
             var erro = 0;
-        $('#Error1, #Error2').css('display', 'none');
+            $('#Error1, #Error2').css('display', 'none');
 
             var nome = $('#Nome').val();
             var email = $('#Email').val();
@@ -63,7 +63,6 @@
                 erro++;
             }
 
-
             if (erro > 0) {
                 return false;
             }
@@ -74,15 +73,14 @@
                     dataType: 'json',
                     data: { Nome: nome, Email: email, Descricao: descricao},
                     success: function (result) {
-                    if (result != null) {
-                        swal("Cadastrado!", "Seu cadastro foi realizado com sucesso!", "success");
-                        //location.reload();
-                    }
-                    else {
-                        swal("Falha ao Cadastrar!", "Confira novamente os campos!", "error");
-                        console.log(model);
-                    }
-                       swal("Cadastrado!", "Seu cadastro foi realizado com sucesso!", "success");
+                        if (result != null) {
+                            swal("Cadastrado!", "Seu cadastro foi realizado com sucesso!", "success");
+                            //location.reload();
+                        }
+                        else {
+                            swal("Falha ao Cadastrar!", "Confira novamente os campos!", "error");
+                            console.log(model);
+                        }
                     },
                     error: function (result) {
                         swal("Falha ao Cadastrar!", "Confira novamente os campos!", "error");

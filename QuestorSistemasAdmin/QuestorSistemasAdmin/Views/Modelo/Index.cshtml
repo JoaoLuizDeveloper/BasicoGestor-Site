@@ -44,7 +44,7 @@
                                         foreach (var item in Model)
                                         {
                                             <tr class="">
-                                                <td>@Html.Raw(item.ModeloDetalhes)</td>
+                                                <td>@Html.Raw(item.Nome)</td>
                                                 <td>@item.DataCadastro.ToString("dd/MM/yyyy")</td>
                                                 <td><a href="@Url.Action("Detalhes", "Modelo", new { id = item.Id })">Detalhes</a></td>
                                                 <td><a href="@Url.Action("Editar", "Modelo", new { id = item.Id })">Editar</a></td>

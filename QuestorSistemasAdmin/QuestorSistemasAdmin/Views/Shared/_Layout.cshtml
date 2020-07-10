@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <link rel="shortcut icon" href="#" type="image/png">
 
+    <link rel="stylesheet" href="/js/data-tables/DT_bootstrap.css" />
     <link href="/js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
     <link href="/js/iCheck/skins/square/square.css" rel="stylesheet">
     <link href="/js/iCheck/skins/square/red.css" rel="stylesheet">
@@ -42,39 +43,13 @@
     <script src="/js/sparkline/sparkline-init.js"></script>
     <script src="/js/iCheck/jquery.icheck.js"></script>
     <script src="/js/icheck-init.js"></script>
-    <script src="/js/flot-chart/jquery.flot.js"></script>
-    <script src="/js/flot-chart/jquery.flot.tooltip.js"></script>
-    <script src="/js/flot-chart/jquery.flot.resize.js"></script>
-    <script src="/js/morris-chart/morris.js"></script>
-    <script src="/js/morris-chart/raphael-min.js"></script>
     <script src="/js/calendar/clndr.js"></script>
     <script src="/js/calendar/evnt.calendar.init.js"></script>
     <script src="/js/calendar/moment-2.2.1.js"></script>
     <script src="/js/scripts.js"></script>
-    <script src="/js/dashboard-chart-init.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function () {
-        $("#Marca").blur(function (e) {
-            var data = "{ 'Marca': '" + this.value + "' }"
-            $.ajax({
-                url: '@Url.Action("SearchMarca", "Anuncio")',
-                cache: false,
-                async: true,
-                type: "POST",
-                data: data,
-                dataType: "json",
-                success: function (data) {
-                    if (data != null) {
-                        if (data.Nome != null && data.Nome != "")
-                            document.getElementById('Marca').value = data.Marca;
-                    } else {
-                        document.getElementById('Marca').value = "";
-                    }
-                }
-            });
-        });
-    });
-    </script>
+    <script type="text/javascript" src="/js/data-tables/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="/js/data-tables/DT_bootstrap.js"></script>
+    <script src="/js/editable-table.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
