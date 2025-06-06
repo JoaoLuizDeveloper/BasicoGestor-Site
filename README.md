@@ -7,7 +7,7 @@ joaoluizdeveloper@gmail.com
 Rocknrool23!
 
 
-
+<br />
 BasicoGestor-Site
 A personal project by João Luiz showcasing a basic management system with a web interface and API, built using ASP.NET Core and front-end technologies.
 
@@ -30,10 +30,8 @@ HTML & CSS
 🚀 Getting Started
 Clone the repository:
 
-bash
-Copy
-Edit
 git clone https://github.com/JoaoLuizDeveloper/BasicoGestor-Site.git
+<br />
 cd BasicoGestor-Site
 Set up the database:
 
@@ -43,9 +41,6 @@ Run the application:
 
 Open the solution in Visual Studio and run the project. Alternatively, use the .NET CLI:
 
-bash
-Copy
-Edit
 dotnet build
 dotnet run
 The application will be available at http://localhost:5000.
